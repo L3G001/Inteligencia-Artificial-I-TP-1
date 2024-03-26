@@ -7,21 +7,65 @@ public class EnviromentData : MonoBehaviour
 	//Esta clase va a contener toda la información necesaria 
 	//para que el aldeano pueda decidir que hacer (acceden a esta info haciendo algo como
 	//EnviromentData.Instance.foodQty).
-	//Por ejemplo acá pueden poner:
-	//1. Cuanta madera tiene (la necesita para construir)
-	//2. Cuanta comida tiene (la necesita para vivir)
-	//3. Estado del clima (si llueve no debería salir de su casa porque se enferma)
-	//4. Momento del día (de noche es peligroso salir)	
+	public DesicionData desicionData;
+	public Cooldowns cooldownData;
 
-	//La siguiente region les va a servir para
-	//acceder al aldeano desde sus nodos 'Accion' (deberán heredar de los nodos 'Accion'		
-	//y en el método Execute() hacer algo como 'EnviromentData.Instance.citizen.DoSomething()')
-#region DONT TOUCH THIS
-	public Citizen citizen;
+
+
+    #region Corrutine
+	public IEnumerator ObtainFood()
+	{
+		yield return new WaitForSeconds(cooldownData.obtainFoodCooldowm);
+        desicionData.food++;
+        StartCoroutine("ObtainFood");
+	}
+    public IEnumerator ObtainWood()
+    {
+        yield return new WaitForSeconds(cooldownData.obtainWoodCooldowm);
+        desicionData.wood++;
+        StartCoroutine("ObtainFood");
+    }
+
+    #endregion
+
+
+
+    //Por ejemplo acá pueden poner:
+    //1. Cuanta madera tiene (la necesita para construir)
+    //2. Cuanta comida tiene (la necesita para vivir)
+    //3. Estado del clima (si llueve no debería salir de su casa porque se enferma)
+    //4. Momento del día (de noche es peligroso salir)	
+
+    //La siguiente region les va a servir para
+    //acceder al aldeano desde sus nodos 'Accion' (deberán heredar de los nodos 'Accion'		
+    //y en el método Execute() hacer algo como 'EnviromentData.Instance.citizen.DoSomething()')
+    #region DONT TOUCH THIS
+    public Citizen citizen;
 	public static EnviromentData Instance { get; private set; }
 	void Awake()
 	{
 		Instance = this;
 	}
 #endregion
+}
+[System.Serializable]
+public class DesicionData
+{
+    public int wood;
+
+    public int food;
+
+    public bool rain;
+
+    public bool day;
+
+    public int HouseAmount = 8;
+}
+[System.Serializable]
+public class Cooldowns
+{
+    public int obtainWoodCooldowm;
+
+    public int obtainFoodCooldowm;
+
 }

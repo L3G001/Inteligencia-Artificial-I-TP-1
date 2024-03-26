@@ -14,21 +14,28 @@ public class DecisionNode : Node
         {
             case Questions.Raining:
 
+                if (EnviromentData.Instance.desicionData.rain) TrueNode.ExecuteNode();
+                else FalseNode.ExecuteNode();
                 break;
             case Questions.Day:
-
+                if (EnviromentData.Instance.desicionData.day) TrueNode.ExecuteNode();
+                else FalseNode.ExecuteNode();
                 break;
             case Questions.Hunger:
-
+                if (EnviromentData.Instance.citizen.Hungry >= 50) TrueNode.ExecuteNode();
+                else FalseNode.ExecuteNode();
                 break;
             case Questions.Cold:
-
+                if (EnviromentData.Instance.citizen.Coold >= 50) TrueNode.ExecuteNode();
+                else FalseNode.ExecuteNode();
                 break;
             case Questions.Wood:
-
+                if (EnviromentData.Instance.desicionData.wood > 10) TrueNode.ExecuteNode();
+                else FalseNode.ExecuteNode();
                 break;
             case Questions.Food:
-
+                if (EnviromentData.Instance.desicionData.food > 10 ) TrueNode.ExecuteNode();
+                else FalseNode.ExecuteNode();
                 break;
         }
     }

@@ -7,6 +7,14 @@ public class Citizen : MonoBehaviour
 	//1. Colocar el nodo raíz.
 	//2. Hacer lo que sea necesario para updatear las desiciones
 	//del aldeano.
+	[Range(0,100)]
+	public float Hungry;
+    [Range(0, 100)]
+    public float Coold;
+    
+
+
+
 #region DONT TOUCH THIS
 	public ParticleSystem sleepPos;
 	public ParticleSystem getWoodPos;
@@ -18,6 +26,7 @@ public class Citizen : MonoBehaviour
 		Debug.Log("Decision: Get Food!");
 		DeactivateAllParticles();		
 		SetPosAndPlayParticle(farmingPos);
+		EnviromentData.Instance.StartCoroutine("ObtainFood");
 	}
 
 	public void GetWood()
@@ -25,7 +34,8 @@ public class Citizen : MonoBehaviour
 		Debug.Log("Decision: Get Wood!");
 		DeactivateAllParticles();		
 		SetPosAndPlayParticle(getWoodPos);
-	}
+        EnviromentData.Instance.StartCoroutine("ObtainWood");
+    }
 
 	public void BuildHouses()
 	{
