@@ -11,6 +11,8 @@ public class Citizen : MonoBehaviour
 	public float Hungry;
     [Range(0, 100)]
     public float Coold;
+
+	public bool Bored;
     
 
 
