@@ -7,6 +7,7 @@ public class EnviromentData : MonoBehaviour
 	//Esta clase va a contener toda la información necesaria 
 	//para que el aldeano pueda decidir que hacer (acceden a esta info haciendo algo como
 	//EnviromentData.Instance.foodQty).
+    
 	public DesicionData desicionData;
 	public Cooldowns cooldownData;
 
@@ -47,6 +48,7 @@ public class EnviromentData : MonoBehaviour
     //y en el método Execute() hacer algo como 'EnviromentData.Instance.citizen.DoSomething()')
     #region DONT TOUCH THIS
     public Citizen citizen;
+    public HouseManager houseManager;
 	public static EnviromentData Instance { get; private set; }
 	void Awake()
 	{
@@ -73,5 +75,7 @@ public class Cooldowns
     public int obtainWoodCooldowm;
 
     public int obtainFoodCooldowm;
+
+    public int BuildHouseCooldown;
 
 }
