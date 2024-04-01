@@ -12,8 +12,6 @@ public class EnviromentData : MonoBehaviour
 	public Cooldowns cooldownData;
 
 
-
-
     #region Corrutine
     public IEnumerator GetFoodCorrutine()
 	{

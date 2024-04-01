@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using TMPro.EditorUtilities;
+using UnityEngine;
 
 public class UITimeUpdater : MonoBehaviour
 {
@@ -14,18 +11,23 @@ public class UITimeUpdater : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
         _hours = _dayNightCycle.CurrentHourAndMinute().CurrentHour;
         _minutes = _dayNightCycle.CurrentHourAndMinute().CurrentMinute;
-        if (_hours == 23 && _minutes == 59 && !_oneTimer) { _dayTracker += 1; _oneTimer = true; }
-        if (_hours != 23 && _minutes != 59 && _oneTimer) { _oneTimer = false; }
+        if (_hours == 0 && !_oneTimer)
+        {
+            _dayTracker++;
+            _oneTimer = true;
+        }
+        //if (_hours == 23 && _minutes == 59 && !_oneTimer) { _dayTracker += 1; _oneTimer = true; }
+        if (_hours != 0 && _oneTimer) { _oneTimer = false; }
         _days.text = "Dia " + _dayTracker;
-        string Hours = _hours < 10 ? "0" + _hours:_hours.ToString();
-        string Minutes = _minutes < 10 ? "0"+_minutes:_minutes.ToString();
+        string Hours = _hours < 10 ? "0" + _hours : _hours.ToString();
+        string Minutes = _minutes < 10 ? "0" + _minutes : _minutes.ToString();
         _time.text = Hours + ":" + Minutes;
     }
 }
