@@ -54,6 +54,14 @@ public class HouseManager : MonoBehaviour
                 }
             }
         }
+        HousesComplex.Remove(HousesSubComplex1);
+        HousesComplex.Remove(HousesSubComplex2);
+        HousesComplex.Remove(HousesSubComplex3);
+        HousesComplex.Remove(HousesSubComplex4);
+        HousesComplex.Remove(HousesSubComplex5);
+        HousesComplex.Remove(HousesSubComplex6);
+        HousesComplex.Remove(HousesSubComplex7);
+        HousesComplex.Remove(HousesSubComplex8);
     }
     [ContextMenu("BuildHouse")]
     public void BuildHouse()
