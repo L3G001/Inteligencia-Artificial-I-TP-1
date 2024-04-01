@@ -28,6 +28,7 @@ public class Citizen : MonoBehaviour
 	public ParticleSystem farmingPos;
 	public ParticleSystem buildPos;
 
+	[ContextMenu("GetFood")]
 	public void GetFood()
 	{
 		Debug.Log("Decision: Get Food!");
@@ -35,23 +36,24 @@ public class Citizen : MonoBehaviour
 		SetPosAndPlayParticle(farmingPos);
 		EnviromentData.Instance.StartCoroutine("GetFoodCorrutine");
 	}
-
-	public void GetWood()
+    [ContextMenu("GetWood")]
+    public void GetWood()
 	{
 		Debug.Log("Decision: Get Wood!");
 		DeactivateAllParticles();		
 		SetPosAndPlayParticle(getWoodPos);
         EnviromentData.Instance.StartCoroutine("GetWoodCorruine");
     }
-
-	public void BuildHouses()
+    [ContextMenu("BuildHouses")]
+    public void BuildHouses()
 	{
 		Debug.Log("Decision: Build!");
 		DeactivateAllParticles();		
 		SetPosAndPlayParticle(buildPos);
+		StartCoroutine("BuildHousesCorrutine");
 	}
-
-	public void GoToSleep()
+    [ContextMenu("GoToSleep")]
+    public void GoToSleep()
 	{
 		Debug.Log("Decision: Go to Sleep!");
 		DeactivateAllParticles();		
@@ -76,7 +78,14 @@ public class Citizen : MonoBehaviour
 	}
 
     #region Corrutine
-
+	public IEnumerator BuildHousesCorrutine()
+	{
+		ActualAction = ActualAction.BuildHouses;
+		yield return new WaitForSeconds(EnviromentData.Instance.cooldownData.BuildHouseCooldown);
+		EnviromentData.Instance.houseManager.BuildHouse();
+		EnviromentData.Instance.desicionData.HouseAmount++;
+		ActualAction = ActualAction.Idle;
+	}
 	public IEnumerator RestTime()
 	{
 		if (ActualAction != ActualAction.Rest)

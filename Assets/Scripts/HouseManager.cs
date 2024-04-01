@@ -18,7 +18,7 @@ public class HouseManager : MonoBehaviour
     public List<List<GameObject>> OriginalHousesComplex = new List<List<GameObject>>();
 
     public List<List<GameObject>> HousesComplex = new List<List<GameObject>>();
-
+    
     private void Start()
     {
         OriginalHousesComplex.Add(HousesSubComplex1);
