@@ -14,9 +14,22 @@ public class HouseManager : MonoBehaviour
     public List<GameObject> HousesSubComplex8;
     public List<GameObject> HousesSubComplex9;
 
-    public List<List<GameObject>> HousesComplex;
+    public List<List<GameObject>> HousesComplex = new List<List<GameObject>>() 
+    { 
+
+    };
     private void Start()
     {
+        HousesComplex.Add(HousesSubComplex1);
+        HousesComplex.Add(HousesSubComplex2);
+        HousesComplex.Add(HousesSubComplex3);
+        HousesComplex.Add(HousesSubComplex4);
+        HousesComplex.Add(HousesSubComplex5);
+        HousesComplex.Add(HousesSubComplex6);
+        HousesComplex.Add(HousesSubComplex7);
+        HousesComplex.Add(HousesSubComplex8);
+        HousesComplex.Add(HousesSubComplex9);
+
         foreach (var subComplex in HousesComplex)
         {
             for (int i = 0; i < subComplex.Count;) 
