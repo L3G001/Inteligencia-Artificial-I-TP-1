@@ -12,18 +12,24 @@ public class EnviromentData : MonoBehaviour
 
 
 
+
     #region Corrutine
-	public IEnumerator ObtainFood()
+    public IEnumerator GetFoodCorrutine()
 	{
+        citizen.ActualAction = ActualAction.GetFood;
 		yield return new WaitForSeconds(cooldownData.obtainFoodCooldowm);
         desicionData.food++;
-        StartCoroutine("ObtainFood");
-	}
-    public IEnumerator ObtainWood()
+        citizen.ActualAction = ActualAction.Idle;
+
+
+    }
+    public IEnumerator GetWoodCorruine()
     {
+        citizen.ActualAction = ActualAction.GetWood;
         yield return new WaitForSeconds(cooldownData.obtainWoodCooldowm);
         desicionData.wood++;
-        StartCoroutine("ObtainFood");
+        citizen.ActualAction = ActualAction.Idle;
+
     }
 
     #endregion

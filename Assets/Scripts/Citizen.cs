@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Citizen : MonoBehaviour 
 {
+
+
+
+
 	//TODO: 
 	//1. Colocar el nodo raíz.
 	//2. Hacer lo que sea necesario para updatear las desiciones
@@ -12,8 +16,9 @@ public class Citizen : MonoBehaviour
     [Range(0, 100)]
     public float Coold;
 
+	public ActualAction ActualAction = ActualAction.Idle;
 	public bool Bored;
-    
+	int SleepHour;
 
 
 
@@ -28,7 +33,7 @@ public class Citizen : MonoBehaviour
 		Debug.Log("Decision: Get Food!");
 		DeactivateAllParticles();		
 		SetPosAndPlayParticle(farmingPos);
-		EnviromentData.Instance.StartCoroutine("ObtainFood");
+		EnviromentData.Instance.StartCoroutine("GetFoodCorrutine");
 	}
 
 	public void GetWood()
@@ -36,7 +41,7 @@ public class Citizen : MonoBehaviour
 		Debug.Log("Decision: Get Wood!");
 		DeactivateAllParticles();		
 		SetPosAndPlayParticle(getWoodPos);
-        EnviromentData.Instance.StartCoroutine("ObtainWood");
+        EnviromentData.Instance.StartCoroutine("GetWoodCorruine");
     }
 
 	public void BuildHouses()
@@ -51,6 +56,9 @@ public class Citizen : MonoBehaviour
 		Debug.Log("Decision: Go to Sleep!");
 		DeactivateAllParticles();		
 		SetPosAndPlayParticle(sleepPos);
+		StartCoroutine("RestTime");
+		
+		
 	}
 
 	private void DeactivateAllParticles()
@@ -66,5 +74,52 @@ public class Citizen : MonoBehaviour
 		transform.position = target.transform.position;
 		target.Play();
 	}
-#endregion
+
+    #region Corrutine
+
+	public IEnumerator RestTime()
+	{
+		if (ActualAction != ActualAction.Rest)
+		{
+			ActualAction = ActualAction.Rest;
+			SleepHour = DayNightCycle.instance.CurrentHourAndMinute().CurrentHour;
+            yield return new WaitForEndOfFrame();
+            StartCoroutine("RestTime");
+        }
+		else
+		{
+			int SleepHours = DayNightCycle.instance.CurrentHourAndMinute().CurrentHour - SleepHour;
+			if(SleepHours < 0)
+			{
+				SleepHours += 24;
+			}
+
+
+			if (SleepHours >= 7)
+			{
+				ActualAction = ActualAction.Idle;
+			}
+			else
+			{
+                yield return new WaitForEndOfFrame();
+                StartCoroutine("RestTime");
+            }
+        }
+
+	}
+    #endregion
+    #endregion
+}
+public enum ActualAction
+{
+	Eat,
+	Rest,
+	WarmUp,
+	Dance,
+	Mitosis,
+    BuildHouses,
+	GetFood,
+	GetWood,
+	Idle
+
 }
