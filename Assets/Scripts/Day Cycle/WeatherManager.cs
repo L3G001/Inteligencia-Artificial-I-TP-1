@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeatherManager : MonoBehaviour
 {
-    public bool rain, morning, day, afternoon, night;
-    
+    private bool _rain, _morning, _day, _afternoon, _night, _oneTime;
+
     public GameObject Rain, Morning, Day, Afternoon, Night;
 
     private int _currentHour;
@@ -14,47 +12,56 @@ public class WeatherManager : MonoBehaviour
     {
         _currentHour = DayNightCycle.instance.CurrentHourAndMinute().CurrentHour;
 
-        if (rain)
+        if (_currentHour == 0 && !_oneTime)
+        {
+            int rainy = Random.Range(0, 101);
+            if (rainy <= 10) { _rain = true; }
+            else { _rain = false; }
+            _oneTime = true;
+        }
+        else if (_currentHour != 0 && _oneTime) { _oneTime = false; }
+
+        if (_rain)
         {
             Rain.SetActive(true);
-            Morning.SetActive(false);
-            Day.SetActive(false);
-            Afternoon.SetActive(false);
-            Night.SetActive(false);
+            Morning.SetActive(false); _morning = false;
+            Day.SetActive(false); _day = false;
+            Afternoon.SetActive(false); _afternoon = false;
+            Night.SetActive(false); _night = false;
         }
         else
         {
-            if(_currentHour >= 5 && _currentHour < 8)
+            if (_currentHour >= 5 && _currentHour < 8)
             {
                 Rain.SetActive(false);
-                Morning.SetActive(true);
-                Day.SetActive(false);
-                Afternoon.SetActive(false);
-                Night.SetActive(false);
+                Morning.SetActive(true); _morning = true;
+                Day.SetActive(false); _day = false;
+                Afternoon.SetActive(false); _afternoon = false;
+                Night.SetActive(false); _night = false;
             }
             else if (_currentHour >= 8 && _currentHour < 17)
             {
                 Rain.SetActive(false);
-                Morning.SetActive(false);
-                Day.SetActive(true);
-                Afternoon.SetActive(false);
-                Night.SetActive(false);
+                Morning.SetActive(false); _morning = false;
+                Day.SetActive(true); _day = true;
+                Afternoon.SetActive(false); _afternoon = false;
+                Night.SetActive(false); _night = false;
             }
             else if (_currentHour >= 17 && _currentHour < 20)
             {
                 Rain.SetActive(false);
-                Morning.SetActive(false);
-                Day.SetActive(false);
-                Afternoon.SetActive(true);
-                Night.SetActive(false);
+                Morning.SetActive(false); _morning = false;
+                Day.SetActive(false); _day = false;
+                Afternoon.SetActive(true); _afternoon = true;
+                Night.SetActive(false); _night = false;
             }
             else if (_currentHour >= 20 || _currentHour < 5)
             {
                 Rain.SetActive(false);
-                Morning.SetActive(false);
-                Day.SetActive(false);
-                Afternoon.SetActive(false);
-                Night.SetActive(true);
+                Morning.SetActive(false); _morning = false;
+                Day.SetActive(false); _day = false;
+                Afternoon.SetActive(false); _afternoon = false;
+                Night.SetActive(true); _night = true;
             }
         }
     }
