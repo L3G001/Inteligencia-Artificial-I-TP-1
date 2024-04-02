@@ -6,12 +6,6 @@ public class Citizen : MonoBehaviour
 
     public Node RootNode;
 
-
-
-
-
-
-
     //TODO: 
     //1. Colocar el nodo raíz.
     //2. Hacer lo que sea necesario para updatear las desiciones
@@ -36,8 +30,6 @@ public class Citizen : MonoBehaviour
             {
                 _actualAction = value;
                 RootNode.ExecuteNode();
-
-
             }
             else
             {
@@ -94,8 +86,40 @@ public class Citizen : MonoBehaviour
         DeactivateAllParticles();
         SetPosAndPlayParticle(sleepPos);
         StartCoroutine("RestTime");
+    }
+    [ContextMenu("Eat")]
+    public void Eat()
+    {
+        Debug.Log("Decision: Eating!");
+        DeactivateAllParticles();
+        StartCoroutine("EatingCorrutine");
+    }
+    [ContextMenu("Warm Up")]
+    public void WarmUp()
+    {
+        Debug.Log("Decision: Warming Up!");
+        DeactivateAllParticles();
+        StartCoroutine("WarmUpCorrutine");
+    }
+    [ContextMenu("Dance")]
+    public void Dance()
+    {
+        Debug.Log("Decision: Dancing!");
+        DeactivateAllParticles();
+    }
+    [ContextMenu("Mitosis")]
+    public void Mitosis()
+    {
+        Debug.Log("Decision: Generating new citizen!");
+        DeactivateAllParticles();
+        StartCoroutine("MitosisCorrutine");
 
-
+    }
+    [ContextMenu("PlayCards")]
+    public void PlayCards()
+    {
+        Debug.Log("Decision: Playing solitary!");
+        DeactivateAllParticles();
     }
 
     private void DeactivateAllParticles()
@@ -151,6 +175,22 @@ public class Citizen : MonoBehaviour
         }
 
     }
+    public IEnumerator EatingCorrutine()
+    {
+        yield return Hungry = 0;
+    }
+    public IEnumerator WarmUpCorrutine()
+    {
+        while (Coold >= 10)
+        {
+            yield return new WaitForEndOfFrame();
+            Coold -= 0.5f * Time.deltaTime;
+        }
+    }
+    public IEnumerator MitosisCorrutine()
+    {
+        yield return null;
+    }
     #endregion
     #endregion
 }
@@ -164,6 +204,7 @@ public enum ActualAction
     BuildHouses,
     GetFood,
     GetWood,
-    Idle
+    Idle,
+    PlayCards
 
 }
