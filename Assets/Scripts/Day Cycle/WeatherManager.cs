@@ -25,6 +25,7 @@ public class WeatherManager : MonoBehaviour
 
         if (_rain)
         {
+            Coldness(6);
             Rain.SetActive(true);
             _morning = false;
             _day = false;
