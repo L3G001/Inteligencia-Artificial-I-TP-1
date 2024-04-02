@@ -5,7 +5,7 @@ public class WeatherManager : MonoBehaviour
 {
     public bool _rain, _morning, _day, _afternoon, _night, _oneTime;
 
-    public GameObject Rain, Morning, Day, Afternoon, Night;
+    public GameObject Rain, Morning, Day, Afternoon, Night, RainParticle;
 
     private int _currentHour;
 
@@ -21,6 +21,7 @@ public class WeatherManager : MonoBehaviour
             _oneTime = true;
         }
         else if (_currentHour != 0 && _oneTime) { _oneTime = false; }
+        RainParticle.SetActive(_rain);
 
         if (_rain)
         {
