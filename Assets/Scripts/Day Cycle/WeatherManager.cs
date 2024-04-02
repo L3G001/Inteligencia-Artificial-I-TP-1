@@ -61,5 +61,6 @@ public class WeatherManager : MonoBehaviour
                 Night.SetActive(true); _night = true;
             }
         }
+        EnviromentData.Instance.desicionData.rain = _rain;
     }
 }
