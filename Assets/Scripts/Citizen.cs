@@ -116,14 +116,7 @@ public class Citizen : MonoBehaviour
         SetPosAndPlayParticle(sleepPos);
         DeactivateAllParticles();
         DancePart.SetActive(true);
-    }
-    [ContextMenu("Mitosis")]
-    public void Mitosis()
-    {
-        Debug.Log("Decision: Generating new citizen!");
-        DeactivateAllParticles();
-        StartCoroutine("MitosisCorrutine");
-
+        StartCoroutine("DancingCorrutine");
     }
     [ContextMenu("PlayCards")]
     public void PlayCards()
@@ -132,6 +125,7 @@ public class Citizen : MonoBehaviour
         SetPosAndPlayParticle(sleepPos);
         DeactivateAllParticles();
         SolitariePart.SetActive(true);
+        StartCoroutine("PlayCardsCorrutine");
     }
 
     private void DeactivateAllParticles()
@@ -160,6 +154,8 @@ public class Citizen : MonoBehaviour
         yield return new WaitForSeconds(EnviromentData.Instance.cooldownData.BuildHouseCooldown);
         EnviromentData.Instance.houseManager.BuildHouse();
         EnviromentData.Instance.desicionData.HouseAmount++;
+        EnviromentData.Instance.desicionData.wood -= 30;
+        EnviromentData.Instance.citizen.Hungry += 20;
         ActualAction = ActualAction.Idle;
     }
     public IEnumerator RestTime()
@@ -182,6 +178,7 @@ public class Citizen : MonoBehaviour
 
             if (SleepHours >= 7)
             {
+                EnviromentData.Instance.citizen.Hungry += 10;
                 ActualAction = ActualAction.Idle;
             }
             else
@@ -194,19 +191,37 @@ public class Citizen : MonoBehaviour
     }
     public IEnumerator EatingCorrutine()
     {
-        yield return Hungry = 0;
+        ActualAction = ActualAction.Eat;
+        yield return new WaitForSeconds(4);
+        Hungry = 0;
+        EnviromentData.Instance.desicionData.food -= 10;
+        ActualAction = ActualAction.Idle;
     }
     public IEnumerator WarmUpCorrutine()
     {
+        ActualAction = ActualAction.WarmUp;
         while (Coold >= 10)
         {
             yield return new WaitForEndOfFrame();
-            Coold -= 0.5f * Time.deltaTime;
+            Coold -= 10f * Time.deltaTime;
         }
+        EnviromentData.Instance.desicionData.wood -= 10;
+        EnviromentData.Instance.citizen.Hungry += 10;
+        ActualAction = ActualAction.Idle;
     }
-    public IEnumerator MitosisCorrutine()
+    public IEnumerator DancingCorrutine()
     {
-        yield return null;
+        ActualAction = ActualAction.Dance;
+        yield return new WaitForSeconds(4);
+        EnviromentData.Instance.citizen.Hungry += 15;
+        ActualAction = ActualAction.Idle;
+    }
+    public IEnumerator PlayCardsCorrutine()
+    {
+        ActualAction = ActualAction.PlayCards;
+        yield return new WaitForSeconds(4);
+        EnviromentData.Instance.citizen.Hungry += 5;
+        ActualAction = ActualAction.Idle;
     }
     #endregion
     #endregion
@@ -217,7 +232,6 @@ public enum ActualAction
     Rest,
     WarmUp,
     Dance,
-    Mitosis,
     BuildHouses,
     GetFood,
     GetWood,

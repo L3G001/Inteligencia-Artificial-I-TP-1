@@ -34,6 +34,7 @@ public class WeatherManager : MonoBehaviour
         {
             if (_currentHour >= 5 && _currentHour < 8)
             {
+                Coldness(2.5f);
                 Morning.SetActive(true); _morning = true;
                 _day = false;
                 _afternoon = false;
@@ -41,6 +42,7 @@ public class WeatherManager : MonoBehaviour
             }
             else if (_currentHour >= 8 && _currentHour < 17)
             {
+                Coldness(1.5f);
                 _morning = false;
                 Day.SetActive(true); _day = true;
                 _afternoon = false;
@@ -48,6 +50,7 @@ public class WeatherManager : MonoBehaviour
             }
             else if (_currentHour >= 17 && _currentHour < 20)
             {
+                Coldness(2.5f);
                 _morning = false;
                 _day = false;
                 Afternoon.SetActive(true); _afternoon = true;
@@ -55,6 +58,7 @@ public class WeatherManager : MonoBehaviour
             }
             else if (_currentHour >= 20 || _currentHour < 5)
             {
+                Coldness(4);
                 _morning = false;
                 _day = false;
                 _afternoon = false;
@@ -62,5 +66,11 @@ public class WeatherManager : MonoBehaviour
             }
         }
         EnviromentData.Instance.desicionData.rain = _rain;
+        EnviromentData.Instance.desicionData.day = _day;
+    }
+    private void Coldness(float value)
+    {
+        if (EnviromentData.Instance.citizen.Coold >= 100) { return; }
+        EnviromentData.Instance.citizen.Coold += value * Time.deltaTime;
     }
 }

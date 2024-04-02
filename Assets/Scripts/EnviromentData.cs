@@ -17,7 +17,7 @@ public class EnviromentData : MonoBehaviour
 	{
         citizen.ActualAction = ActualAction.GetFood;
 		yield return new WaitForSeconds(cooldownData.obtainFoodCooldowm);
-        desicionData.food++;
+        desicionData.food += 20;
         citizen.ActualAction = ActualAction.Idle;
 
 
@@ -26,7 +26,8 @@ public class EnviromentData : MonoBehaviour
     {
         citizen.ActualAction = ActualAction.GetWood;
         yield return new WaitForSeconds(cooldownData.obtainWoodCooldowm);
-        desicionData.wood++;
+        desicionData.wood += 20;
+        citizen.Hungry += 20;
         citizen.ActualAction = ActualAction.Idle;
 
     }
