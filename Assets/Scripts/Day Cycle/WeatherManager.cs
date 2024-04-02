@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WeatherManager : MonoBehaviour
 {
-    private bool _rain, _morning, _day, _afternoon, _night, _oneTime;
+    public bool _rain, _morning, _day, _afternoon, _night, _oneTime;
 
     public GameObject Rain, Morning, Day, Afternoon, Night;
 
@@ -24,43 +25,39 @@ public class WeatherManager : MonoBehaviour
         if (_rain)
         {
             Rain.SetActive(true);
-            Morning.SetActive(false); _morning = false;
-            Day.SetActive(false); _day = false;
-            Afternoon.SetActive(false); _afternoon = false;
-            Night.SetActive(false); _night = false;
+            _morning = false;
+            _day = false;
+            _afternoon = false;
+            _night = false;
         }
         else
         {
             if (_currentHour >= 5 && _currentHour < 8)
             {
-                Rain.SetActive(false);
                 Morning.SetActive(true); _morning = true;
-                Day.SetActive(false); _day = false;
-                Afternoon.SetActive(false); _afternoon = false;
-                Night.SetActive(false); _night = false;
+                _day = false;
+                _afternoon = false;
+                _night = false;
             }
             else if (_currentHour >= 8 && _currentHour < 17)
             {
-                Rain.SetActive(false);
-                Morning.SetActive(false); _morning = false;
+                _morning = false;
                 Day.SetActive(true); _day = true;
-                Afternoon.SetActive(false); _afternoon = false;
-                Night.SetActive(false); _night = false;
+                _afternoon = false;
+                _night = false;
             }
             else if (_currentHour >= 17 && _currentHour < 20)
             {
-                Rain.SetActive(false);
-                Morning.SetActive(false); _morning = false;
-                Day.SetActive(false); _day = false;
+                _morning = false;
+                _day = false;
                 Afternoon.SetActive(true); _afternoon = true;
-                Night.SetActive(false); _night = false;
+                _night = false;
             }
             else if (_currentHour >= 20 || _currentHour < 5)
             {
-                Rain.SetActive(false);
-                Morning.SetActive(false); _morning = false;
-                Day.SetActive(false); _day = false;
-                Afternoon.SetActive(false); _afternoon = false;
+                _morning = false;
+                _day = false;
+                _afternoon = false;
                 Night.SetActive(true); _night = true;
             }
         }
