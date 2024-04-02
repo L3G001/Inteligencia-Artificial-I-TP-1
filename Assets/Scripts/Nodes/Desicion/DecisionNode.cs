@@ -37,15 +37,18 @@ public class DecisionNode : Node
                 if (EnviromentData.Instance.desicionData.food >= 10) TrueNode.ExecuteNode();
                 else FalseNode.ExecuteNode();
                 break;
-           // case Questions.MitosisFood:
-             //   if (EnviromentData.Instance.desicionData.food >= 30) TrueNode.ExecuteNode();
-               // else FalseNode.ExecuteNode();
-                //break;
+            // case Questions.MitosisFood:
+            //   if (EnviromentData.Instance.desicionData.food >= 30) TrueNode.ExecuteNode();
+            // else FalseNode.ExecuteNode();
+            //break;
             case Questions.HouseWood:
                 if (EnviromentData.Instance.desicionData.wood >= 40) TrueNode.ExecuteNode();
                 else FalseNode.ExecuteNode();
                 break;
-            
+            case Questions.HouseCons:
+                if (EnviromentData.Instance.houseManager.Construible) TrueNode.ExecuteNode();
+                else FalseNode.ExecuteNode();
+                break;
         }
     }
 }
@@ -58,5 +61,6 @@ public enum Questions
     Wood,
     Food,
     HouseWood,
+    HouseCons
     
 }
