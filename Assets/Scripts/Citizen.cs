@@ -54,6 +54,10 @@ public class Citizen : MonoBehaviour
     public ParticleSystem getWoodPos;
     public ParticleSystem farmingPos;
     public ParticleSystem buildPos;
+    public GameObject EatPart;
+    public GameObject WarmUpPart;
+    public GameObject DancePart;
+    public GameObject SolitariePart;
 
     [ContextMenu("GetFood")]
     public void GetFood()
@@ -91,21 +95,27 @@ public class Citizen : MonoBehaviour
     public void Eat()
     {
         Debug.Log("Decision: Eating!");
+        SetPosAndPlayParticle(sleepPos);
         DeactivateAllParticles();
+        EatPart.SetActive(true);
         StartCoroutine("EatingCorrutine");
     }
     [ContextMenu("Warm Up")]
     public void WarmUp()
     {
         Debug.Log("Decision: Warming Up!");
+        SetPosAndPlayParticle(sleepPos);
         DeactivateAllParticles();
+        WarmUpPart.SetActive(true);
         StartCoroutine("WarmUpCorrutine");
     }
     [ContextMenu("Dance")]
     public void Dance()
     {
         Debug.Log("Decision: Dancing!");
+        SetPosAndPlayParticle(sleepPos);
         DeactivateAllParticles();
+        DancePart.SetActive(true);
     }
     [ContextMenu("Mitosis")]
     public void Mitosis()
@@ -119,7 +129,9 @@ public class Citizen : MonoBehaviour
     public void PlayCards()
     {
         Debug.Log("Decision: Playing solitary!");
+        SetPosAndPlayParticle(sleepPos);
         DeactivateAllParticles();
+        SolitariePart.SetActive(true);
     }
 
     private void DeactivateAllParticles()
@@ -128,6 +140,11 @@ public class Citizen : MonoBehaviour
         getWoodPos.Stop();
         farmingPos.Stop();
         buildPos.Stop();
+        EatPart.SetActive(false);
+        WarmUpPart.SetActive(false);
+        DancePart.SetActive(false);
+        SolitariePart.SetActive(false);
+
     }
 
     private void SetPosAndPlayParticle(ParticleSystem target)
