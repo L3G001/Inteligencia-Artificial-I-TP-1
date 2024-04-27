@@ -1,18 +1,25 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-    [SerializeField] float _boundHeight, _boundWidth;
-    
+    [Header("Map Configs")]
+    [SerializeField] float _boundHeight;
+    [SerializeField] float _boundWidth;
+    [Header("Hunter Configs")]
+    public float hunterCurrentFuel; 
+    public float hunterMaxFuel;
+    public int hunterGold;
+    public int huntedBoids;
+    [Header("Boid Configs")]
     public float alignmentWeight = 1;
     public float separationWeight = 1;
     public float cohesionWeight = 1;
     public float separationRadius, cohesionRadius, viewRadius;
     public List<SteeringAgent> allAgents = new List<SteeringAgent>();
-
+    
     private void Awake()
     {
         if (Instance == null) Instance = this;
