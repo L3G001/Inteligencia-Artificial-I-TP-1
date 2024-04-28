@@ -10,22 +10,22 @@ public class Boid : SteeringAgent
         float y = Random.Range(-1f, 1f);
         var dir = new Vector3(x, y);
         _velocity = dir.normalized * _maxSpeed;
-        GameManager.Instance.allAgents.Add(this);
+        GameManager.Instance.boidConfig.allAgents.Add(this);
     }
 
     private void Flocking()
     {
-        var boids = GameManager.Instance.allAgents;
-        AddForce(Spacing(boids,GameManager.Instance.separationRadius)*GameManager.Instance.separationWeight);
-        AddForce(Cohesion(boids,GameManager.Instance.cohesionRadius)*GameManager.Instance.cohesionWeight);
-        AddForce(Alignment(boids,GameManager.Instance.viewRadius)*GameManager.Instance.alignmentWeight);
+        var boids = GameManager.Instance.boidConfig.allAgents;
+        AddForce(Spacing(boids,GameManager.Instance.boidConfig.separationRadius)*GameManager.Instance.boidConfig.separationWeight);
+        AddForce(Cohesion(boids,GameManager.Instance.boidConfig.cohesionRadius)*GameManager.Instance.boidConfig.cohesionWeight);
+        AddForce(Alignment(boids,GameManager.Instance.boidConfig.viewRadius)*GameManager.Instance.boidConfig.alignmentWeight);
     }
 
     private void UpdateBoundPos() { transform.position = GameManager.Instance.BoundPosition(transform.position); }
 
     private void Update()
     {
-        _viewRadius = GameManager.Instance.viewRadius;
+        _viewRadius = GameManager.Instance.boidConfig.viewRadius;
         Move();
         Flocking();
         UpdateBoundPos();
@@ -36,9 +36,9 @@ public class Boid : SteeringAgent
     {
         if(GameManager.Instance == null) return;
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, GameManager.Instance.separationRadius);
+        Gizmos.DrawWireSphere(transform.position, GameManager.Instance.boidConfig.separationRadius);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, GameManager.Instance.cohesionRadius);
+        Gizmos.DrawWireSphere(transform.position, GameManager.Instance.boidConfig.cohesionRadius);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, _viewRadius);
     }

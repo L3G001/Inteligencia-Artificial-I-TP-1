@@ -13,10 +13,10 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        totalBoids.text = "Total ducks: " + GameManager.Instance.allAgents.Count;
-        hunterGold.text = "Hunter gold: " + GameManager.Instance.hunterGold;
-        huntedBoids.text = "Hunted ducks: " + GameManager.Instance.huntedBoids;
-        hunterFuel.value = GameManager.Instance.hunterCurrentFuel/GameManager.Instance.hunterMaxFuel;
-        Fuel.color = Color.Lerp(criticalFuel, completeFuel, GameManager.Instance.hunterCurrentFuel/GameManager.Instance.hunterMaxFuel);
+        totalBoids.text = "Total ducks: " + GameManager.Instance.boidConfig.allAgents.Count;
+        hunterGold.text = "Hunter gold: " + GameManager.Instance.hunterConfig.hunterGold;
+        huntedBoids.text = "Hunted ducks: " + GameManager.Instance.hunterConfig.huntedBoids;
+        hunterFuel.value = GameManager.Instance.hunterConfig.hunterCurrentFuel /GameManager.Instance.hunterConfig.hunterMaxFuel;
+        Fuel.color = Color.Lerp(criticalFuel, completeFuel, GameManager.Instance.hunterConfig.hunterCurrentFuel /GameManager.Instance.hunterConfig.hunterMaxFuel);
     }
 }

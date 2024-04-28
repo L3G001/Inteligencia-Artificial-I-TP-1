@@ -8,17 +8,8 @@ public class GameManager : MonoBehaviour
     [Header("Map Configs")]
     [SerializeField] float _boundHeight;
     [SerializeField] float _boundWidth;
-    [Header("Hunter Configs")]
-    public float hunterCurrentFuel; 
-    public float hunterMaxFuel;
-    public int hunterGold;
-    public int huntedBoids;
-    [Header("Boid Configs")]
-    public float alignmentWeight = 1;
-    public float separationWeight = 1;
-    public float cohesionWeight = 1;
-    public float separationRadius, cohesionRadius, viewRadius;
-    public List<SteeringAgent> allAgents = new List<SteeringAgent>();
+    public HunterConfig hunterConfig;
+    public BoidConfig boidConfig;
     
     private void Awake()
     {
@@ -43,4 +34,27 @@ public class GameManager : MonoBehaviour
 
         return pos;
     }
+}
+[System.Serializable]
+public class BoidConfig
+{
+    public float alignmentWeight = 1;
+    public float separationWeight = 1;
+    public float cohesionWeight = 1;
+    public float separationRadius, cohesionRadius, viewRadius;
+    public List<SteeringAgent> allAgents = new List<SteeringAgent>();
+}
+[System.Serializable]
+public class HunterConfig
+{
+    public float hunterCurrentFuel;
+    public float hunterMaxFuel;
+    public int hunterGold;
+    public int huntedBoids;
+    public WaypointManagers waypointManagers;
+}
+[System.Serializable]
+public class WaypointManagers
+{
+    public WaypointManager PatrolManager;
 }
