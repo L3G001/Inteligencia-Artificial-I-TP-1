@@ -47,10 +47,17 @@ public class BoidConfig
 [System.Serializable]
 public class HunterConfig
 {
+    [Header("ShootConfig")]
+    public float shootRadius;
+
+    [Header("FuelConfig")]
     public float hunterCurrentFuel;
     public float hunterMaxFuel;
+
+    [Header("HuntProf")]
     public int hunterGold;
     public int huntedBoids;
+
     public WaypointManagers waypointManagers;
 }
 [System.Serializable]
