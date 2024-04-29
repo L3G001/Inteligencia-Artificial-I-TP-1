@@ -43,6 +43,7 @@ public class BoidConfig
     public float cohesionWeight = 1;
     public float separationRadius, cohesionRadius, viewRadius;
     public List<SteeringAgent> allAgents = new List<SteeringAgent>();
+    public GameObject food;
 }
 [System.Serializable]
 public class HunterConfig
@@ -57,6 +58,9 @@ public class HunterConfig
     [Header("HuntProf")]
     public int hunterGold;
     public int huntedBoids;
+    public int boidsInBoat;
+
+    public Hunter hunter;
 
     public WaypointManagers waypointManagers;
 }

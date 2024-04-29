@@ -48,7 +48,7 @@ public class Patrol : State
     {
         PatrolWaypoints();
         myAgent.Move();
-        myAgent.ChangeFuelPerSecond(-10f);
+        myAgent.ChangeFuelPerSecond(-5f);
        
     }
 
