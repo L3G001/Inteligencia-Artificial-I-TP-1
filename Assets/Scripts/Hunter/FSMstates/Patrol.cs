@@ -20,6 +20,17 @@ public class Patrol : State
     {
        
     }
+    bool CheckShoot()
+    {
+        foreach (var Agent in GameManager.Instance.boidConfig.allAgents)
+        {
+            if (Vector3.Distance(myAgent.transform.position, Agent.transform.position) < 10)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private void PatrolWaypoints()
     {
         if (Vector3.Distance(waypointManager.Waypoints[objectiveIndex].Position, myAgent.transform.position) < 1)
@@ -49,7 +60,11 @@ public class Patrol : State
         PatrolWaypoints();
         myAgent.Move();
         myAgent.ChangeFuelPerSecond(-5f);
-       
+        if (CheckShoot())
+        {
+            fsm.ChangeState(StateID.Attack);
+        }
+
     }
 
     public override void OnExit()

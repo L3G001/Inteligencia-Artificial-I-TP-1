@@ -57,6 +57,11 @@ public class SteeringAgent : MonoBehaviour
         Vector3 futurePos = targetAgent.transform.position + targetAgent._velocity;
         return Seek(futurePos);
     }
+    protected Vector3 PrePursuit(SteeringAgent targetAgent)
+    {
+        Vector3 futurePos = targetAgent.transform.position + targetAgent._velocity;
+        return futurePos;
+    }
 
     protected Vector3 Evade(SteeringAgent targetAgent) => -Pursuit(targetAgent);
 
@@ -113,7 +118,7 @@ public class SteeringAgent : MonoBehaviour
         return Vector3.zero;
     }
 
-    protected void ResetPosition()
+    public void ResetPosition()
     {
         transform.position = Vector3.zero;
     }
