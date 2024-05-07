@@ -53,5 +53,9 @@ public class Shooting : State
             }
             fsm.ChangeState(StateID.Patrol);
         }
+        if(Vector3.Distance(_target.transform.position,_myArpShoter.transform.position) > _shootRadius)
+        {
+            fsm.ChangeState(StateID.Patrol);
+        }
     }
 }

@@ -28,7 +28,7 @@ public class FoodManager : MonoBehaviour
             _oneTimeFood = true;
             FoodSpawn();
         }
-        BoidSpawn();
+        
     }
 
     void FoodSpawn()
@@ -36,27 +36,7 @@ public class FoodManager : MonoBehaviour
         StartCoroutine(FoodSpawnDelay());
     }
 
-    public void BoidSpawn()
-    {
-        if (GameManager.Instance.boidConfig.food.activeSelf == false && !_oneTimeSpawn)
-        {
-            foreach (var agent in GameManager.Instance.boidConfig.allAgents)
-            {
-                if (agent.gameObject.activeSelf == false)
-                {
-                    agent.transform.position = GameManager.Instance.boidConfig.food.transform.position;
-                    agent.gameObject.SetActive(true);
-                    _oneTimeSpawn = true;
-                    return;
-                }
-            }
-            var newAgent = Instantiate(Resources.Load<GameObject>("Boid"));
-            GameManager.Instance.boidConfig.allAgents.Add(newAgent.GetComponent<SteeringAgent>());
-            newAgent.transform.position = GameManager.Instance.boidConfig.food.transform.position;
-            _oneTimeSpawn = true;
-        }
-        else return;
-    }
+   
     IEnumerator FoodSpawnDelay()
     {
         yield return new WaitForSeconds(5);
