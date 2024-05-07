@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Patrol : State
 {
@@ -65,6 +66,21 @@ public class Patrol : State
             fsm.ChangeState(StateID.Attack);
         }
 
+    }
+    public void checkAtack()
+    {
+        SteeringAgent clooserAgent = GameManager.Instance.boidConfig.allAgents[0];
+        foreach (var Agent in GameManager.Instance.boidConfig.allAgents)
+        {
+            if (Vector3.Distance(myAgent.transform.position, Agent.transform.position) < Vector3.Distance(clooserAgent.transform.position, myAgent.transform.position))
+            {
+                clooserAgent = Agent;
+            }
+        }
+        if (Vector3.Distance(clooserAgent.transform.position, myAgent.transform.position) < GameManager.Instance.hunterConfig.shootRadius)
+        {
+            fsm.ChangeState(StateID.Attack);
+        }
     }
 
     public override void OnExit()

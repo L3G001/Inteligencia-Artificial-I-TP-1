@@ -5,12 +5,14 @@ using UnityEngine;
 public class Hunter : SteeringAgent
 {
     FSM fsm;
+    public ArpShoter arpShoter;
 
     private void Start()
     {
         fsm = new();
         fsm.AddState(StateID.Patrol, new Patrol(this, GameManager.Instance.hunterConfig.waypointManagers.PatrolManager));
         fsm.AddState(StateID.Idle, new Idle(this));
+        fsm.AddState(StateID.Attack, new Shooting(arpShoter));
 
         fsm.ChangeState(StateID.Patrol);
         ResetFuel();
