@@ -12,9 +12,9 @@ public class ArpShoter : SteeringAgent
     public void ApplyRotation()
     {
         transform.right = _velocity;
+        if (arpon == null) arpon = Instantiate(Resources.Load<GameObject>("Arpon").GetComponent<Arp>());
         if (!arpon.move)
         {
-            arpon = Instantiate(Resources.Load<GameObject>("Arpon").GetComponent<Arp>());
             arpon.transform.position = spawner.transform.position;
             arpon.transform.right = spawner.transform.right;
         }

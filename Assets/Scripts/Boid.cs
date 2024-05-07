@@ -31,7 +31,7 @@ public class Boid : SteeringAgent
 
         if (Vector3.Distance(target.transform.position, transform.position) <= _viewRadius) { AddForce(Evade(target)*GameManager.Instance.boidConfig.evedeWeight); state = BoidState.EvadingHunter; }
         else if (Vector3.Distance(food.transform.position, transform.position) <= _viewRadius) { AddForce(Arrive(food.transform.position) * GameManager.Instance.boidConfig.arriveWeight);state = BoidState.ArrivingFood; }
-        if (Vector3.Distance(food.transform.position, transform.position) <= _separationRadius) { food.gameObject.SetActive(false); }
+        if (Vector3.Distance(food.transform.position, transform.position) <= _separationRadius) { food.gameObject.SetActive(false); FoodManager.Instance.BoidSpawn(); }
         else
         {
             state = BoidState.Flocking;

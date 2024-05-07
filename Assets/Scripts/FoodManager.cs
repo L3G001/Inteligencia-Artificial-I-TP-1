@@ -1,9 +1,15 @@
 using System.Collections;
-using System.Net;
 using UnityEngine;
 
 public class FoodManager : MonoBehaviour
 {
+    public static FoodManager Instance;
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
     void Start()
     {
         if (GameManager.Instance.boidConfig.food.activeSelf == false)
@@ -18,44 +24,35 @@ public class FoodManager : MonoBehaviour
         {
             FoodSpawn();
         }
-        BoidSpawn();
     }
 
     void FoodSpawn()
     {
-        FoodSpawnDelay();
-        GameManager.Instance.boidConfig.food.transform.position = GameManager.Instance.foodConfig.waypointManagers.FoodManager.Waypoints[Random.Range(0, GameManager.Instance.foodConfig.waypointManagers.FoodManager.Waypoints.Count)].Position;
-        GameManager.Instance.boidConfig.food.gameObject.SetActive(true);
+        StartCoroutine(FoodSpawnDelay());
     }
 
-    void BoidSpawn()
+    public void BoidSpawn()
     {
         if (GameManager.Instance.boidConfig.food.activeSelf == false)
         {
-            foreach(var agent in GameManager.Instance.boidConfig.allAgents)
+            foreach (var agent in GameManager.Instance.boidConfig.allAgents)
             {
-                var inactive = 0;
                 if (agent.gameObject.activeSelf == false)
                 {
-                    inactive++;
+                    agent.gameObject.SetActive(true);
                     return;
                 }
-                if(inactive == 0)
-                {
-                    Instantiate(GameManager.Instance.boidConfig.boidPrefab);
-                    GameManager.Instance.boidConfig.allAgents.Add(GameManager.Instance.boidConfig.boidPrefab.GetComponent<SteeringAgent>());
-                }
-                else
-                {
-                    agent.gameObject.SetActive(true);
-                    inactive--;
-                }
             }
+            var newAgent = Instantiate(Resources.Load<GameObject>("Boid"));
+            GameManager.Instance.boidConfig.allAgents.Add(newAgent.GetComponent<SteeringAgent>());
+            newAgent.transform.position = GameManager.Instance.boidConfig.food.transform.position;
         }
         else return;
     }
     IEnumerator FoodSpawnDelay()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
+        GameManager.Instance.boidConfig.food.transform.position = GameManager.Instance.foodConfig.waypointManagers.FoodManager.Waypoints[Random.Range(0, GameManager.Instance.foodConfig.waypointManagers.FoodManager.Waypoints.Count)].Position;
+        GameManager.Instance.boidConfig.food.gameObject.SetActive(true);
     }
 }
