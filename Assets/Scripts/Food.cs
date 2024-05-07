@@ -16,7 +16,6 @@ public class Food : MonoBehaviour
             }
         }
         var newAgent = Instantiate(Resources.Load<GameObject>("Boid"));
-        GameManager.Instance.boidConfig.allAgents.Add(newAgent.GetComponent<SteeringAgent>());
         newAgent.transform.position = GameManager.Instance.boidConfig.food.transform.position;
     }
 }

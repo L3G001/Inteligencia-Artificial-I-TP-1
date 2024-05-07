@@ -44,8 +44,9 @@ public class BoidConfig
     public float separationWeight = 1;
     public float cohesionWeight = 1;
     public float separationRadius, cohesionRadius, viewRadius;
-    public float evedeWeight = 1;
+    public float evadeWeight = 1;
     public float arriveWeight = 1;
+    public float obstacleWeight = 1;
     public List<SteeringAgent> allAgents = new List<SteeringAgent>();
     public GameObject food;
     public GameObject boidPrefab;

@@ -29,27 +29,40 @@ public class Boid : SteeringAgent
         var food = GameManager.Instance.boidConfig.food;
         _viewRadius = GameManager.Instance.boidConfig.viewRadius;
         var _separationRadius = GameManager.Instance.boidConfig.separationRadius;
-
-        if (Vector3.Distance(target.transform.position, transform.position) <= _viewRadius) { AddForce(Evade(target) * GameManager.Instance.boidConfig.evedeWeight); state = BoidState.EvadingHunter; }
+        if (Vector3.Distance(target.transform.position, transform.position) <= _viewRadius)
+        {
+            AddForce(Evade(target) * GameManager.Instance.boidConfig.evadeWeight);
+            state = BoidState.EvadingHunter;
+            AddForce(ObstacleAvoidance() * GameManager.Instance.boidConfig.obstacleWeight);
+        }
         else if (Vector3.Distance(food.transform.position, transform.position) <= _viewRadius)
         {
             AddForce(Arrive(food.transform.position) * GameManager.Instance.boidConfig.arriveWeight);
-            state = BoidState.ArrivingFood; 
+            state = BoidState.ArrivingFood;
             StartCoroutine(SpawnDelay());
+            AddForce(ObstacleAvoidance() * GameManager.Instance.boidConfig.obstacleWeight);
         }
 
         if (Vector3.Distance(food.transform.position, transform.position) <= _separationRadius)
         {
-            food.gameObject.SetActive(false); 
+            food.gameObject.SetActive(false);
             GameManager.Instance.boidConfig.food.transform.position += new Vector3(0, 0, 20);
+            AddForce(ObstacleAvoidance() * GameManager.Instance.boidConfig.obstacleWeight);
         }
         else
         {
-            state = BoidState.Flocking;
-            Flocking();
+            if (HasToUseOA())
+            {
+                AddForce(ObstacleAvoidance() * GameManager.Instance.boidConfig.obstacleWeight);
+            }
+            else
+            {
+                state = BoidState.Flocking;
+                Flocking();
+            }
         }
-            Move();
-            UpdateBoundPos();
+        Move();
+        UpdateBoundPos();
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
@@ -62,6 +75,13 @@ public class Boid : SteeringAgent
         Gizmos.DrawWireSphere(transform.position, GameManager.Instance.boidConfig.cohesionRadius);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, _viewRadius);
+        Gizmos.color = Color.red;
+        Ray ray = new Ray(transform.position + transform.up * 0.5f, transform.right);
+        Ray ray2 = new Ray(transform.position - transform.up * 0.5f, transform.right);
+        if (Physics.SphereCast(ray, 0.5f, out RaycastHit hit, _viewRadius, _obstacle)) Gizmos.DrawSphere(hit.point, 0.5f);
+        else Gizmos.DrawSphere(ray.origin + ray.direction * _viewRadius, 0.5f);
+        if (Physics.SphereCast(ray2, 0.5f, out RaycastHit hit2, _viewRadius, _obstacle)) Gizmos.DrawSphere(hit2.point, 0.5f);
+        else Gizmos.DrawSphere(ray2.origin + ray2.direction * _viewRadius, 0.5f);
     }
     IEnumerator SpawnDelay()
     {

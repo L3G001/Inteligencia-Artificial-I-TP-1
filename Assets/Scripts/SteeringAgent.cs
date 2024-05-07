@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class SteeringAgent : MonoBehaviour
@@ -113,8 +114,8 @@ public class SteeringAgent : MonoBehaviour
     {
         Ray ray = new Ray(transform.position + transform.up * 0.5f,transform.right);
         Ray ray2 = new Ray(transform.position - transform.up * 0.5f,transform.right);
-        if (Physics.SphereCast(ray,0.5f,_viewRadius,_obstacle)) return Seek(transform.position - transform.up);
-        else if (Physics.SphereCast(ray2,0.5f, _viewRadius, _obstacle)) return Seek(transform.position + transform.up);
+        if (Physics.SphereCast(ray, 0.5f, _viewRadius, _obstacle)) return Seek(transform.position + transform.up);
+        else if (Physics.SphereCast(ray2, 0.5f, _viewRadius, _obstacle)) return Seek(transform.position - transform.up);
         return Vector3.zero;
     }
 
