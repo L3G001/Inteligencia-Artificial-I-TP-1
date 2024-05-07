@@ -1,15 +1,23 @@
-using System.Globalization;
 using UnityEngine;
 
 public class ArpShoter : SteeringAgent
 {
+    [SerializeField] GameObject spawner;
+    private Arp arpon;
+
     public void AimToTarget(SteeringAgent targetAgent)
     {
-       AddForce(Pursuit(targetAgent));
-    }   
+        AddForce(Pursuit(targetAgent));
+    }
     public void ApplyRotation()
     {
         transform.right = _velocity;
+        if (!arpon.move)
+        {
+            arpon = Instantiate(Resources.Load<GameObject>("Arpon").GetComponent<Arp>());
+            arpon.transform.position = spawner.transform.position;
+            arpon.transform.right = spawner.transform.right;
+        }
     }
     public bool CompareAngle(SteeringAgent targetAgent)
     {
@@ -19,7 +27,7 @@ public class ArpShoter : SteeringAgent
     }
     public void Shoot()
     {
-      //Spawn.Shoot;
+        arpon.move = true;
     }
 
 
