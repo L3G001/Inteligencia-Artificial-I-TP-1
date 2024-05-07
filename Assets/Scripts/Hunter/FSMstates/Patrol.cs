@@ -60,7 +60,7 @@ public class Patrol : State
     {
         PatrolWaypoints();
         myAgent.Move();
-        myAgent.ChangeFuelPerSecond(-5f);
+        myAgent.ChangeFuelPerSecond(-GameManager.Instance.hunterConfig.hunterPatrolCost);
         if (CheckShoot())
         {
             fsm.ChangeState(StateID.Attack);

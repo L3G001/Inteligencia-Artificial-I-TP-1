@@ -4,7 +4,7 @@ public class Shooting : State
 {
     ArpShoter _myArpShoter;
     SteeringAgent _target;
-    float _shootRadius = 10f;
+    float _shootRadius = 5f;
     public Shooting(ArpShoter myArpShoter)
     {
         _myArpShoter = myArpShoter;
@@ -38,10 +38,19 @@ public class Shooting : State
     {
         _myArpShoter.AimToTarget(_target);
         _myArpShoter.ApplyRotation();
-        if(_myArpShoter.CompareAngle(_target))
+        if (_myArpShoter.CompareAngle(_target))
         {
-            _myArpShoter.Shoot();
-            GameManager.Instance.hunterConfig.hunterCurrentFuel -= 20;
+            if (GameManager.Instance.hunterConfig.hunterCurrentFuel >= GameManager.Instance.hunterConfig.hunterShootCost)
+            {
+                _myArpShoter.Shoot();
+                GameManager.Instance.hunterConfig.hunterCurrentFuel -= GameManager.Instance.hunterConfig.hunterShootCost;
+                _target.gameObject.SetActive(false);
+                GameManager.Instance.hunterConfig.huntedBoids++;
+            }
+            else
+            {
+                fsm.ChangeState(StateID.Patrol);
+            }
             fsm.ChangeState(StateID.Patrol);
         }
     }

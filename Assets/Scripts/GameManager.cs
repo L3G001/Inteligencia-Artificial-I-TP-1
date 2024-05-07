@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -10,7 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _boundWidth;
     public HunterConfig hunterConfig;
     public BoidConfig boidConfig;
-    
+    public FoodConfig foodConfig;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -46,6 +48,7 @@ public class BoidConfig
     public float arriveWeight = 1;
     public List<SteeringAgent> allAgents = new List<SteeringAgent>();
     public GameObject food;
+    public GameObject boidPrefab;
 }
 [System.Serializable]
 public class HunterConfig
@@ -56,6 +59,8 @@ public class HunterConfig
     [Header("FuelConfig")]
     public float hunterCurrentFuel;
     public float hunterMaxFuel;
+    public float hunterPatrolCost;
+    public float hunterShootCost;
 
     [Header("HuntProf")]
     public int hunterGold;
@@ -67,7 +72,14 @@ public class HunterConfig
     public WaypointManagers waypointManagers;
 }
 [System.Serializable]
+public class FoodConfig
+{
+    public WaypointManagers waypointManagers;
+}
+
+[System.Serializable]
 public class WaypointManagers
 {
     public WaypointManager PatrolManager;
+    public WaypointManager FoodManager;
 }
