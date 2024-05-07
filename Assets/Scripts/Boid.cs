@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Boid : SteeringAgent
@@ -29,9 +30,19 @@ public class Boid : SteeringAgent
         _viewRadius = GameManager.Instance.boidConfig.viewRadius;
         var _separationRadius = GameManager.Instance.boidConfig.separationRadius;
 
-        if (Vector3.Distance(target.transform.position, transform.position) <= _viewRadius) { AddForce(Evade(target)*GameManager.Instance.boidConfig.evedeWeight); state = BoidState.EvadingHunter; }
-        else if (Vector3.Distance(food.transform.position, transform.position) <= _viewRadius) { AddForce(Arrive(food.transform.position) * GameManager.Instance.boidConfig.arriveWeight);state = BoidState.ArrivingFood; }
-        if (Vector3.Distance(food.transform.position, transform.position) <= _separationRadius) { food.gameObject.SetActive(false); FoodManager.Instance.BoidSpawn(); }
+        if (Vector3.Distance(target.transform.position, transform.position) <= _viewRadius) { AddForce(Evade(target) * GameManager.Instance.boidConfig.evedeWeight); state = BoidState.EvadingHunter; }
+        else if (Vector3.Distance(food.transform.position, transform.position) <= _viewRadius)
+        {
+            AddForce(Arrive(food.transform.position) * GameManager.Instance.boidConfig.arriveWeight);
+            state = BoidState.ArrivingFood; 
+            StartCoroutine(SpawnDelay());
+        }
+
+        if (Vector3.Distance(food.transform.position, transform.position) <= _separationRadius)
+        {
+            food.gameObject.SetActive(false); 
+            GameManager.Instance.boidConfig.food.transform.position += new Vector3(0, 0, 20);
+        }
         else
         {
             state = BoidState.Flocking;
@@ -51,6 +62,11 @@ public class Boid : SteeringAgent
         Gizmos.DrawWireSphere(transform.position, GameManager.Instance.boidConfig.cohesionRadius);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, _viewRadius);
+    }
+    IEnumerator SpawnDelay()
+    {
+        yield return new WaitForSeconds(10);
+        FoodManager.Instance._oneTimeSpawn = false;
     }
 }
 public enum BoidState
