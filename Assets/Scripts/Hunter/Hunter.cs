@@ -13,7 +13,8 @@ public class Hunter : SteeringAgent
         fsm.AddState(StateID.Patrol, new Patrol(this, GameManager.Instance.hunterConfig.waypointManagers.PatrolManager));
         fsm.AddState(StateID.Idle, new Idle(this));
         fsm.AddState(StateID.Attack, new Shooting(arpShoter));
-
+        fsm.AddState(StateID.Docking, new Dock(this, GameManager.Instance.hunterConfig.waypointManagers.DockManager));
+        fsm.AddState(StateID.Selling, new Selling());
         fsm.ChangeState(StateID.Patrol);
         ResetFuel();
         

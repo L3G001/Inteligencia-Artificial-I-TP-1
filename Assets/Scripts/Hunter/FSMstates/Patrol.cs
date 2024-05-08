@@ -61,6 +61,10 @@ public class Patrol : State
         PatrolWaypoints();
         myAgent.Move();
         myAgent.ChangeFuelPerSecond(-GameManager.Instance.hunterConfig.hunterPatrolCost);
+        if(GameManager.Instance.hunterConfig.boidsInBoat > 3)
+        {
+            fsm.ChangeState(StateID.Docking);
+        }
         if (CheckShoot())
         {
             fsm.ChangeState(StateID.Attack);

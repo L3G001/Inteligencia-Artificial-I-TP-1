@@ -44,8 +44,6 @@ public class Shooting : State
             {
                 _myArpShoter.Shoot();
                 GameManager.Instance.hunterConfig.hunterCurrentFuel -= GameManager.Instance.hunterConfig.hunterShootCost;
-                _target.gameObject.SetActive(false);
-                GameManager.Instance.hunterConfig.huntedBoids++;
             }
             else
             {

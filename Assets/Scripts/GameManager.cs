@@ -67,6 +67,8 @@ public class HunterConfig
     public int hunterGold;
     public int huntedBoids;
     public int boidsInBoat;
+    public float sellTime;
+    public int duckPrice;
 
     public Hunter hunter;
 
@@ -83,4 +85,5 @@ public class WaypointManagers
 {
     public WaypointManager PatrolManager;
     public WaypointManager FoodManager;
+    public WaypointManager DockManager;
 }

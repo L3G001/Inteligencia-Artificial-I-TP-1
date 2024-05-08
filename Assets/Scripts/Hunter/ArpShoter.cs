@@ -12,12 +12,6 @@ public class ArpShoter : SteeringAgent
     public void ApplyRotation()
     {
         transform.right = _velocity;
-        if (arpon == null) arpon = Instantiate(Resources.Load<GameObject>("Arpon").GetComponent<Arp>());
-        if (!arpon.move)
-        {
-            arpon.transform.position = spawner.transform.position;
-            arpon.transform.right = spawner.transform.right;
-        }
     }
     public bool CompareAngle(SteeringAgent targetAgent)
     {
@@ -27,6 +21,12 @@ public class ArpShoter : SteeringAgent
     }
     public void Shoot()
     {
+        if (arpon == null) arpon = Instantiate(Resources.Load<GameObject>("Arpon").GetComponent<Arp>());
+        if (!arpon.move)
+        {
+            arpon.transform.position = spawner.transform.position;
+            arpon.transform.right = spawner.transform.right;
+        }
         arpon.move = true;
     }
 
