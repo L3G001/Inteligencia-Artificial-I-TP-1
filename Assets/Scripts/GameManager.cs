@@ -49,7 +49,6 @@ public class BoidConfig
     public float obstacleWeight = 1;
     public List<SteeringAgent> allAgents = new List<SteeringAgent>();
     public GameObject food;
-    public GameObject boidPrefab;
 }
 [System.Serializable]
 public class HunterConfig

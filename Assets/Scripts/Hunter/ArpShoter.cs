@@ -17,7 +17,7 @@ public class ArpShoter : SteeringAgent
     {
         Vector3 dir = PrePursuit(targetAgent) - transform.position;
         float angle = Vector3.Angle(transform.right, dir);
-        return angle < 5;
+        return angle < 15;
     }
     public void Shoot()
     {
