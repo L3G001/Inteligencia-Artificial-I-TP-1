@@ -12,11 +12,16 @@ public class Arp : MonoBehaviour
 
     public bool move;
     public float speed;
+    IEnumerator Start()
+    {
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
+    }
     void Update()
     {
-        if(move)
+        if (move)
         {
-          transform.position += transform.right *speed* Time.deltaTime;
+            transform.position += transform.right * speed * Time.deltaTime;
         }
         CheckDestroy();
     }
@@ -24,7 +29,7 @@ public class Arp : MonoBehaviour
     {
         foreach (SteeringAgent targetAgent in GameManager.Instance.boidConfig.allAgents)
         {
-            if (Vector3.Distance(targetAgent.transform.position, transform.position)<destroyRange)
+            if (Vector3.Distance(targetAgent.transform.position, transform.position) < destroyRange)
             {
                 DestroyMeAndResetTarget(targetAgent);
             }

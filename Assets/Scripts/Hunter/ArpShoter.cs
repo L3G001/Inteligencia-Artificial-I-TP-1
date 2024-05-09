@@ -28,6 +28,7 @@ public class ArpShoter : SteeringAgent
             arpon.transform.right = spawner.transform.right;
         }
         arpon.move = true;
+        arpon = null;
     }
 
 

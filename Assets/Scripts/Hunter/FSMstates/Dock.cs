@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Dock : State
@@ -16,6 +14,7 @@ public class Dock : State
     }
     public override void OnEnter()
     {
+        objectiveIndex = 0;
         Waypoint closerWaypoint = waypointManager.Waypoints[objectiveIndex];
         foreach (Waypoint way in waypointManager.Waypoints)
         {
@@ -24,20 +23,20 @@ public class Dock : State
                 closerWaypoint = way;
             }
         }
-        if(waypointManager.Waypoints.IndexOf(closerWaypoint) == waypointManager.Waypoints.Count - 1)
+        if (waypointManager.Waypoints.IndexOf(closerWaypoint) == waypointManager.Waypoints.Count - 1)
         {
             objectiveIndex = waypointManager.Waypoints.Count - 2;
         }
         else
         {
 
-        objectiveIndex = waypointManager.Waypoints.IndexOf(closerWaypoint);
+            objectiveIndex = waypointManager.Waypoints.IndexOf(closerWaypoint);
         }
     }
 
     public override void OnExit()
     {
-        
+        Patrol.objectiveIndex = 4;
     }
 
     public override void OnUpdate()
@@ -51,6 +50,10 @@ public class Dock : State
                 fsm.ChangeState(StateID.Selling);
             }
         }
-        myAgent.AddForce(myAgent.Seek(waypointManager.Waypoints[objectiveIndex].Position));
+        else
+        {
+            myAgent.AddForce(myAgent.Seek(waypointManager.Waypoints[objectiveIndex].Position));
+
+        }
     }
 }

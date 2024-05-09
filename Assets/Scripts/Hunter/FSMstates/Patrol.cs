@@ -8,7 +8,7 @@ public class Patrol : State
     Hunter myAgent;
 
     WaypointManager waypointManager;
-    int objectiveIndex = 0;
+    public static int objectiveIndex = 0;
 
     public Patrol(Hunter myAgent, WaypointManager waypointManager)
     {

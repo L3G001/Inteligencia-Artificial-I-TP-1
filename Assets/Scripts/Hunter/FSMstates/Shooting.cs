@@ -11,6 +11,7 @@ public class Shooting : State
     }
     public override void OnEnter()
     {
+        _myArpShoter.ResetVelocity();
         SteeringAgent clooserAgent = GameManager.Instance.boidConfig.allAgents[0];
         foreach (var Agent in GameManager.Instance.boidConfig.allAgents)
         {
@@ -36,6 +37,7 @@ public class Shooting : State
 
     public override void OnUpdate()
     {
+      
         _myArpShoter.AimToTarget(_target);
         _myArpShoter.ApplyRotation();
         if (_myArpShoter.CompareAngle(_target))
@@ -43,7 +45,8 @@ public class Shooting : State
             if (GameManager.Instance.hunterConfig.hunterCurrentFuel >= GameManager.Instance.hunterConfig.hunterShootCost)
             {
                 _myArpShoter.Shoot();
-                GameManager.Instance.hunterConfig.hunterCurrentFuel -= GameManager.Instance.hunterConfig.hunterShootCost;
+                var cost = GameManager.Instance.hunterConfig.hunterShootCost;
+                GameManager.Instance.hunterConfig.hunterCurrentFuel -= cost;
             }
             else
             {

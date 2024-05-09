@@ -123,4 +123,8 @@ public class SteeringAgent : MonoBehaviour
     {
         transform.position = Vector3.zero;
     }
+    public void ResetVelocity()
+    {
+        _velocity = Vector3.zero;
+    }
 }
