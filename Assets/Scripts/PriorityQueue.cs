@@ -12,6 +12,10 @@ public class PriorityQueue <T>
     }
     public void Enqueue(T elem, float cost)
     {
+        if(_allElements.ContainsKey(elem))
+        {
+            return;
+        }
         _allElements.Add(elem, cost);
     }
 

@@ -136,6 +136,7 @@ public class Pathfinding : MonoBehaviour
 
     public List<Node> CalculateAStar(Node startingNode, Node goalNode)
     {
+        Debug.Log("Calculando A* de "+ startingNode.gameObject.name+ "a "+ goalNode.gameObject.name);
         var frontier = new PriorityQueue<Node>();
         frontier.Enqueue(startingNode, 0);
 
@@ -158,6 +159,7 @@ public class Pathfinding : MonoBehaviour
                     path.Add(current);
                     current = cameFrom[current];
                 }
+                path.Add(startingNode);
                 path.Reverse();
                 return path;
             }

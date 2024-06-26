@@ -5,30 +5,50 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public List<Enemy> enemies = new List<Enemy>();
+    public Vector3 TargetLastPos;
+    public Transform target;
+    public List<Node> nodes = new List<Node>();
     public Pathfinding pathfinding;
-    public Enemy enemy;
     public LayerMask layerMask;
-    Node _startingNode;
-    Node _goalNode;
+
+    public bool playerInSight;
+
+    private void Update()
+    {
+       bool inSight = false;
+        foreach (var enemy in enemies)
+        {
+            if (enemy.inSight)
+            {
+                inSight = true;
+                break;
+            }
+        }
+       playerInSight = inSight;
+    }
+
     private void Awake()
     {
         instance = this;
     }
 
-    private void Update()
+    public Node GetNode(Vector3 position)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        Node node = null;
+        float minDistance = float.MaxValue;
+
+        foreach (var n in nodes)
         {
-            if (_startingNode != null && _goalNode != null)
+            float distance = Vector3.Distance(n.transform.position, position);
+            if (distance < minDistance)
             {
-                /*
-                var list = pathfinding.CalculateDijkstra(_startingNode, _goalNode);
-                enemy.SetMove(list);
-                */
-                StartCoroutine(pathfinding.CoroutineTheta(_startingNode, _goalNode));
+                minDistance = distance;
+                node = n;
             }
         }
 
+        return node;
     }
 
     public bool InLineOfSight(Vector3 start, Vector3 end)
@@ -36,29 +56,6 @@ public class GameManager : MonoBehaviour
         var dir = end - start;
 
         return !Physics.Raycast(start, dir, dir.magnitude, layerMask);
-    }
-
-    public void SetStartingNode(Node node)
-    {
-        if(_startingNode != null)
-        {
-            _startingNode.GetComponent<Renderer>().material.color = Color.white;
-        }
-
-        _startingNode = node;
-        _startingNode.GetComponent<Renderer>().material.color = Color.red;
-        enemy.transform.position = node.transform.position;
-    }
-
-    public void SetGoalNode(Node node)
-    {
-        if (_goalNode != null)
-        {
-            _goalNode.GetComponent<Renderer>().material.color = Color.white;
-        }
-
-        _goalNode = node;
-        _goalNode.GetComponent<Renderer>().material.color = Color.yellow;
     }
 
 }

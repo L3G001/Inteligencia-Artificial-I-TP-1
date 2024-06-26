@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Grid : MonoBehaviour
+/*public class Grid : MonoBehaviour
 {
     public Node prefab;
     public int width, height;
@@ -31,4 +30,4 @@ public class Grid : MonoBehaviour
 
         return _grid[x, y];
     }
-}
+}*/
