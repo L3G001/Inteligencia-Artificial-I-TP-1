@@ -1,25 +1,30 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
 {
-    public static event Action<float, float> EventRun;
-    public static event Action EventWalk;
-
-    public float addRadius, addAngle;
-    private void Update()
+    Rigidbody rb;
+    public int speed;
+    Vector2 dir;
+    private void Start()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            //Programo que aumente la velocidad y corra.
-            EventRun?.Invoke(addRadius, addAngle);
-        }
+        rb = GetComponent<Rigidbody>();
+    }
+    void Update()
+    {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+        dir = new Vector2(moveX, moveY);
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            //Programo que vuelva a la velocidad normal.
-            EventWalk?.Invoke();
-        }
+
+    }
+    private void FixedUpdate()
+    {
+        Movement(dir);
+    }
+    void Movement(Vector2 direction)
+    {
+        rb.velocity = direction.normalized * speed * Time.fixedDeltaTime;
     }
 }
