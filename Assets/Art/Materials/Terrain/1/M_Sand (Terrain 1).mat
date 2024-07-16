@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Sand
+  m_Name: M_Sand (Terrain 1)
   m_Shader: {fileID: -6465566751694194690, guid: 49e421b46dd2f5c4893ab529dfa87ea2,
     type: 3}
   m_Parent: {fileID: 0}
@@ -64,12 +64,13 @@ Material:
     - _Height_1: 0.89
     - _Height_Dune: 0.29
     - _Height_Trail: 0.321
+    - _Moves: 1
     - _Normal_Sample_Radious: 0.01
     - _Normal_Strength: 0.05
     - _Pattern_Amplitud: 1
     - _Pattern_Frequency: 1
     - _Pattern_Rotation: 0
-    - _Pattern_Scale: 1
+    - _Pattern_Scale: 0.72
     - _Polygon_Height: 1.34
     - _Polygon_Sides: 10
     - _Polygon_Sides_1: 3
@@ -84,6 +85,8 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Roughness_Intensity: 0.439
+    - _Sand_Speed: 0.015
+    - _Sand_Spped: 0
     - _SrcBlend: 1
     - _Substrate_Dune_Height_Max: 0.335
     - _Substrate_Grain_Height_Max: 1
@@ -97,6 +100,7 @@ Material:
     - _Polygon_Tiling: {r: 1, g: 20, b: 0, a: 0}
     - _Sand_Bottom: {r: 0.6320754, g: 0.5241231, b: 0.33094516, a: 0}
     - _Sand_Grain: {r: 0.6132076, g: 0.42092487, b: 0.24586153, a: 0}
+    - _Sand_Movement: {r: -0.5, g: 0.5, b: 0, a: 0}
     - _Sand_Top: {r: 0.7169812, g: 0.67643535, b: 0.38892847, a: 0}
     - _Shine_Color: {r: 0.5566038, g: 0.27502778, b: 0, a: 1}
     - _Subtrate_Color: {r: 0.5188679, g: 0.43804032, b: 0.25698647, a: 0}

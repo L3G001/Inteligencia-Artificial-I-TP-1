@@ -128,15 +128,15 @@ float3 rand1dTo3d(float value) {
 
 // Shader graph custom functions
 void Rand3dTo1d_float(float3 Value, out float Out) {
-	rand3dTo1d(Value, Out);
+	Out = rand3dTo1d(Value);
 }
 
 void Rand2dTo1d_float(float2 Value, out float Out) {
-	rand2dTo1d(Value, Out);
+	Out = rand2dTo1d(Value);
 }
 
 void Rand1dTo1d_float(float3 Value, out float Out) {
-	rand1dTo1d(Value, Out);
+	Out = rand1dTo1d(Value);
 }
 
 void Rand3dTo2d_float(float3 value, out float2 Out) {
