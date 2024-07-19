@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7248768519111306344
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Shield
+  m_Shader: {fileID: -6465566751694194690, guid: 375ca495879b6e64ca4cc3f5a79a4c5b,
+    type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _Border_Intensity: 1.75
+    - _Border_Plain_Color: 0
+    - _Border_Scale: 40
+    - _CastShadows: 1
+    - _Cull: 2
+    - _Depth_Offset: -0.91
+    - _Disolve_Sharpness: 0.976
+    - _Disolve_Value: -0.05
+    - _Displacement_Strength: 0.2
+    - _Dissolve_Sharpness: 0.97
+    - _Dissolve_Value: 0.381
+    - _Distortion_Rotation_Speed: 1
+    - _Distortion_Strength: 0.026
+    - _Distortion_Variation: 1
+    - _DstBlend: 10
+    - _Fresnel_Intensity: 1
+    - _Fresnel_Power: 3
+    - _Hit_Position: 0
+    - _Noise_Scale: 500
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Sphere_Mask_Hardness: 0.85
+    - _Sphere_Mask_Radious: 0.64
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
+    - _Zoom: 0.3
+    m_Colors:
+    - _Border_Color: {r: 1.6937469, g: 0.36895007, b: 1.7592452, a: 1}
+    - _Border_Movement_Speed: {r: 0.01, g: 0.05, b: 0, a: 0}
+    - _Disolve_Edge_Color: {r: 1.6937469, g: 0.36895007, b: 1.7592452, a: 0}
+    - _Dissolve_Edge_Color: {r: 3.1699088, g: 0.31949288, b: 3.564869, a: 1}
+    - _Hit_Position: {r: 0, g: 0, b: 0, a: 0}
+    - _Mask_Smooth_Step: {r: 0.32, g: 0.55, b: 0, a: 0}
+    - _Object_Screen_Position: {r: 0, g: 0, b: 0, a: 0}
+    - _Shield_Color: {r: 0.22377071, g: 0, b: 0.2924528, a: 1}
+    - _Texture_Movement_Speed: {r: 0.01, g: 0.005, b: 0, a: 0}
+  m_BuildTextureStacks: []
