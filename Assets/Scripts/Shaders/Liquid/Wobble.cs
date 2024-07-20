@@ -13,8 +13,10 @@ public class Wobble : MonoBehaviour
     public float WobbleSpeed = 1f;
     public float Recovery = 1f;
     float wobbleAmountX;
+    float wobbleAmountY;
     float wobbleAmountZ;
     float wobbleAmountToAddX;
+    float wobbleAmountToAddY;
     float wobbleAmountToAddZ;
     float pulse;
     float time = 0.5f;
@@ -29,15 +31,18 @@ public class Wobble : MonoBehaviour
         time += Time.deltaTime;
         // decrease wobble over time
         wobbleAmountToAddX = Mathf.Lerp(wobbleAmountToAddX, 0, Time.deltaTime * (Recovery));
+        wobbleAmountToAddY = Mathf.Lerp(wobbleAmountToAddY, 0, Time.deltaTime * (Recovery));
         wobbleAmountToAddZ = Mathf.Lerp(wobbleAmountToAddZ, 0, Time.deltaTime * (Recovery));
 
         // make a sine wave of the decreasing wobble
         pulse = 2 * Mathf.PI * WobbleSpeed;
         wobbleAmountX = wobbleAmountToAddX * Mathf.Sin(pulse * time);
+        wobbleAmountY = wobbleAmountToAddY * Mathf.Sin(pulse * time);
         wobbleAmountZ = wobbleAmountToAddZ * Mathf.Sin(pulse * time);
 
         // send it to the shader
         rend.material.SetFloat("_WobbleX", wobbleAmountX);
+        rend.material.SetFloat("_WobbleY", wobbleAmountY);
         rend.material.SetFloat("_WobbleZ", wobbleAmountZ);
 
         // velocity
@@ -47,6 +52,7 @@ public class Wobble : MonoBehaviour
 
         // add clamped velocity to wobble
         wobbleAmountToAddX += Mathf.Clamp((velocity.x + (angularVelocity.z * 0.2f)) * MaxWobble, -MaxWobble, MaxWobble);
+        wobbleAmountToAddY += Mathf.Clamp((velocity.x + (angularVelocity.z * 0.2f)) * MaxWobble, -MaxWobble, MaxWobble);
         wobbleAmountToAddZ += Mathf.Clamp((velocity.z + (angularVelocity.x * 0.2f)) * MaxWobble, -MaxWobble, MaxWobble);
 
         // keep last position
