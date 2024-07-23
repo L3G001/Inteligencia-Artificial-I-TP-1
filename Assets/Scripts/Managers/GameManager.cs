@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInputManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static PlayerInputManager instance;
+    public static GameManager instance;
 
-    public KeyCode jumpKey, attackKey, pauseKey, interactKey, sprintKey;
+    public InputReader _inputReader;
 
     void Awake()
     {

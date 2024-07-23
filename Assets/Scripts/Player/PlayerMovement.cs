@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -18,40 +17,29 @@ public class PlayerMovement : MonoBehaviour
     private float rotationX = 0;
     private Vector3 _moveDirection = Vector3.zero;
     public bool canMove = default;
+    private float _movementDirectionY = default;
+    private bool _isRunning = default;
+    private bool _isJumping = default;
 
     private CharacterController _characterController;
 
+    private Vector2 _inputVector;
+
     void Start()
     {
+        var _input = GameManager.instance._inputReader;
         _characterController = GetComponent<CharacterController>();
+        _input.MoveEvent += HandleMove;
+        _input.JumpEvent += HandleJump;
+        _input.JumpCancelledEvent += HandleCancelledJump;
+        _input.SprintEvent += HandleSprint;
+        _input.SprintCancelledEvent += HandleCancelledSprint;
     }
 
     void Update()
     {
-        #region Movement
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
-
-        bool isRunning = Input.GetKey(PlayerInputManager.instance.sprintKey);
-        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
-        float movementDirectionY = _moveDirection.y;
-        _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
-        #endregion
-        #region Jump
-        if (Input.GetKey(PlayerInputManager.instance.jumpKey) && canMove && _characterController.isGrounded)
-        {
-            _moveDirection.y = jumpHeight;
-        }
-        else
-        {
-            _moveDirection.y = movementDirectionY;
-        }
-        if (!_characterController.isGrounded)
-        {
-            _moveDirection.y -= gravity * Time.deltaTime;
-        }
-        #endregion
+        Move();
+        Jump();
         #region Rotation
         _characterController.Move(_moveDirection * Time.deltaTime);
         if (canMove)
@@ -69,18 +57,50 @@ public class PlayerMovement : MonoBehaviour
             _playerCamera.GetComponent<Animator>().SetBool("IsWalking", false);
             _playerCamera.GetComponent<Animator>().SetBool("IsIdle", true);
         }
-        else if (_characterController.velocity.magnitude != 0 && isRunning)
+        else if (_characterController.velocity.magnitude != 0 && _isRunning)
         {
             _playerCamera.GetComponent<Animator>().SetBool("IsRunning", true);
             _playerCamera.GetComponent<Animator>().SetBool("IsWalking", false);
             _playerCamera.GetComponent<Animator>().SetBool("IsIdle", false);
         }
-        else if (!isRunning && _characterController.velocity.magnitude != 0)
+        else if (!_isRunning && _characterController.velocity.magnitude != 0)
         {
             _playerCamera.GetComponent<Animator>().SetBool("IsRunning", false);
             _playerCamera.GetComponent<Animator>().SetBool("IsWalking", true);
             _playerCamera.GetComponent<Animator>().SetBool("IsIdle", false);
         }
         #endregion
+    }
+
+    private void HandleMove(Vector2 inputVector) { _inputVector = inputVector; }
+    private void HandleJump() { _isJumping = true; }
+    private void HandleCancelledJump() { _isJumping = false; }
+    private void HandleSprint() { _isRunning = true; }
+    private void HandleCancelledSprint() { _isRunning = false; }
+
+    private void Move()
+    {
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+        float curSpeedX = canMove ? (_isRunning ? runSpeed : walkSpeed) * (_inputVector.x) : 0;
+        float curSpeedY = canMove ? (_isRunning ? runSpeed : walkSpeed) * (_inputVector.y) : 0;
+        _movementDirectionY = _moveDirection.y;
+        _moveDirection = (forward * curSpeedY) + (right * curSpeedX);
+    }
+
+    private void Jump()
+    {
+        if (_isJumping && canMove && _characterController.isGrounded)
+        {
+            _moveDirection.y = jumpHeight;
+        }
+        else
+        {
+            _moveDirection.y = _movementDirectionY;
+        }
+        if (!_characterController.isGrounded)
+        {
+            _moveDirection.y -= gravity * Time.deltaTime;
+        }
     }
 }

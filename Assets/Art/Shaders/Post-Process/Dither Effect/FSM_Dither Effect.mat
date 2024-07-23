@@ -42,11 +42,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Color_Resolution: 16
+    - _Animated: 1
+    - _Circle_Circel_Size: 2
+    - _Circle_Height: 1.5
+    - _Circle_Width: 1.5
+    - _Color_Resolution: 64
     - _DitherStrength: 0
     - _Dither_Spread: 0.05
+    - _Dots_Tiling: 100
+    - _Intensity: 1000
     - _Max: 0.01
     - _Min: 0
     - _Posterize: 50
-    m_Colors: []
+    m_Colors:
+    - _Background_Color: {r: 0.6509434, g: 0.49837586, b: 0.26713246, a: 0}
+    - _Color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
