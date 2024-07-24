@@ -3,10 +3,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Header("Bullet Settings")]
-    [SerializeField] float _projectileSpeed, _lifeTime;
+    [SerializeField] public float projectileSpeed, lifeTime;
     Vector3 _hitNormal, _hitPos;
     Ray ray;
     RaycastHit hit;
+    float _currentLifeTime;
 
     [Header("Damage Settings")]
     [SerializeField] float _bulletDamage;
@@ -18,7 +19,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        Vector3 delta = (transform.forward * _projectileSpeed * Time.deltaTime);
+        Vector3 delta = (transform.forward * projectileSpeed * Time.deltaTime);
         transform.position += delta;
         ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out hit))
@@ -31,15 +32,16 @@ public class Bullet : MonoBehaviour
                 Hit(hit.collider);
             }
         }
-        Death();
+        if (delta != Vector3.zero) { Death(); }
+        else { _currentLifeTime = lifeTime; }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         IDamageable obj;
-        if (other.TryGetComponent<IDamageable>(out obj)) 
-        { 
-            if(BulletOrigin.Equals(other.gameObject.layer))
+        if (other.TryGetComponent<IDamageable>(out obj))
+        {
+            if (BulletOrigin.Equals(other.gameObject.layer))
             {
                 return;
             }
@@ -47,12 +49,12 @@ public class Bullet : MonoBehaviour
             {
                 if (bulletType == BulletType.Fire)
                 {
-                    obj.TakeDamage(_bulletDamage);
-                    obj.DOT(_dotDamage, _dotDuration);
+                    obj.TakeDamage(_bulletDamage * gameObject.transform.localScale.x);
+                    obj.DOT(_dotDamage * gameObject.transform.localScale.x, _dotDuration);
                 }
                 else if (bulletType == BulletType.Water)
                 {
-                    obj.TakeDamage(_bulletDamage);
+                    obj.TakeDamage(_bulletDamage * gameObject.transform.localScale.x);
                 }
             }
         }
@@ -72,10 +74,11 @@ public class Bullet : MonoBehaviour
 
     void Death()
     {
-        gameObject.transform.localScale = Vector3.Slerp(gameObject.transform.localScale, Vector3.zero, 1/_lifeTime * Time.deltaTime);
-        if (gameObject.transform.localScale.x <= 0.1f)
+        _currentLifeTime -= Time.deltaTime;
+        if (lifeTime <= 0.1f)
         {
             gameObject.SetActive(false);
+            _currentLifeTime = lifeTime;
         }
     }
 }

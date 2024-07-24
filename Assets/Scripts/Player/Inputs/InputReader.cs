@@ -41,6 +41,7 @@ public class InputReader : ScriptableObject, PlayerInputs.IGameplayActions, Play
     public event Action SprintCancelledEvent;
 
     public event Action AttackEvent;
+    public event Action AttackCancelledEvent;
 
     public event Action ChangeWeaponEvent;
 
@@ -54,6 +55,10 @@ public class InputReader : ScriptableObject, PlayerInputs.IGameplayActions, Play
         if (context.phase == InputActionPhase.Performed)
         {
             AttackEvent?.Invoke();
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            AttackCancelledEvent?.Invoke();
         }
     }
 

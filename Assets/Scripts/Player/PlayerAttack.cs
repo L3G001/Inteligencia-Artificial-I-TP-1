@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private bool _isAttacking = default;
+
     void Start()
+    {
+        GameManager.instance._inputReader.AttackEvent += AttackStartHandle;
+        GameManager.instance._inputReader.AttackCancelledEvent += AttackCancelledHandle;
+    }
+
+    void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void AttackStartHandle()
     {
-        
+        _isAttacking = true;
+    }
+
+    void AttackCancelledHandle()
+    {
+        _isAttacking = false;
     }
 }

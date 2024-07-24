@@ -41,8 +41,7 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Jump();
         #region Rotation
-        _characterController.Move(_moveDirection * Time.deltaTime);
-        if (canMove)
+        if (canMove && !UIManager.Instance.isPaused)
         {
             rotationX -= Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
@@ -86,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         float curSpeedY = canMove ? (_isRunning ? runSpeed : walkSpeed) * (_inputVector.y) : 0;
         _movementDirectionY = _moveDirection.y;
         _moveDirection = (forward * curSpeedY) + (right * curSpeedX);
+        _characterController.Move(_moveDirection * Time.deltaTime);
     }
 
     private void Jump()

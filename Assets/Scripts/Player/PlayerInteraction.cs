@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     void Start()
+    {
+        GameManager.instance._inputReader.InteractEvent += HandleInteract;
+    }
+
+    void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void HandleInteract()
     {
-        
+
     }
 }
