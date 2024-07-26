@@ -1,19 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class ObjectPool<T> where T : MonoBehaviour
 {
-    public ObjectPool(string ObjectName)
-    { 
+    public List<T> pool;
+
+    public ObjectPool(string ObjectName, Transform parent)
+    {
+        pool = new List<T>();
+        GameObject obj = new GameObject(ObjectName + " Pool");
+        obj.transform.parent = parent;
         _objectName = ObjectName;
         for (int i = 0; i < 10; i++)
         {
-            pool.Add(Factory.instance.Creator<T>(_objectName));
+            pool.Add(Factory.instance.Creator<T>(_objectName, obj.transform));
             pool[i].gameObject.SetActive(false);
         }
     }
 
-    public List<T> pool = new List<T>();
     private string _objectName;
 
     public T GetObject()

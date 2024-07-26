@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
             _playerCamera.GetComponent<Animator>().SetBool("IsIdle", false);
         }
         #endregion
+        _characterController.Move(_moveDirection * Time.deltaTime);
     }
 
     private void HandleMove(Vector2 inputVector) { _inputVector = inputVector; }
@@ -85,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
         float curSpeedY = canMove ? (_isRunning ? runSpeed : walkSpeed) * (_inputVector.y) : 0;
         _movementDirectionY = _moveDirection.y;
         _moveDirection = (forward * curSpeedY) + (right * curSpeedX);
-        _characterController.Move(_moveDirection * Time.deltaTime);
     }
 
     private void Jump()

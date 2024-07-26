@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ChangeWeaponMouse",
+                    "type": "Value",
+                    "id": "8d19c845-49e8-4b58-ae4c-f8b9be92b875",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "e0b3e945-9c01-4949-b9ab-72704eabc90b",
@@ -149,28 +158,6 @@
                 },
                 {
                     "name": "",
-                    "id": "a33f0ba0-2e4d-4ca1-bd11-7ff34d285af3",
-                    "path": "<Mouse>/forwardButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeWeapon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2f145fba-1e93-4a35-87b7-f05480fcb908",
-                    "path": "<Mouse>/backButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeWeapon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8bf45915-b5ce-4a0b-8760-a0db5df1c9bb",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -210,6 +197,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b06e658-fd40-4b17-b4f2-96cb73f4a095",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeaponMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

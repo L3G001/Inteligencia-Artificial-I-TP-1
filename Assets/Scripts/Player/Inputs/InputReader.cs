@@ -52,7 +52,7 @@ public class InputReader : ScriptableObject, PlayerInputs.IGameplayActions, Play
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Started)
         {
             AttackEvent?.Invoke();
         }
@@ -68,6 +68,11 @@ public class InputReader : ScriptableObject, PlayerInputs.IGameplayActions, Play
         {
             ChangeWeaponEvent?.Invoke();
         }
+    }
+
+    public void OnChangeWeaponMouse(InputAction.CallbackContext context)
+    {
+        ChangeWeaponEvent?.Invoke();
     }
 
     public void OnInteract(InputAction.CallbackContext context)

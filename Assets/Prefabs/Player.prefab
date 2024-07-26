@@ -166,13 +166,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971544037111530086}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7071067, z: -0, w: 0.70710695}
+  m_LocalRotation: {x: -0, y: -0.6440846, z: -0, w: 0.7649543}
   m_LocalPosition: {x: -1.2, y: 0.9, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4292507855292220250}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -80.194, z: 0}
 --- !u!1 &3275105523895052896
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 875431151649331898}
   - component: {fileID: 7440178018045440612}
   - component: {fileID: 736632335375050165}
+  - component: {fileID: 510397752401232594}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -381,8 +382,23 @@ MonoBehaviour:
   walkSpeed: 6
   runSpeed: 12
   jumpHeight: 4.5
-  gravity: 10
+  gravity: 13
   canMove: 1
+--- !u!114 &510397752401232594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4041572816929754870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a23cf6e81434544af8be9e874b777f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletSpawn: {fileID: 1971544037111530086}
+  _waterBullet: {fileID: 4820323610324808729}
+  _fireBullet: {fileID: 3440298492066233804}
 --- !u!1 &4656300728196652163
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +412,7 @@ GameObject:
   - component: {fileID: 891607385926864962}
   - component: {fileID: 1902144899884113984}
   - component: {fileID: 3868825676318737728}
+  - component: {fileID: 1147883226783634638}
   m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -545,6 +562,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1147883226783634638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656300728196652163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cd8a895a0198d4997266595da7946b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radius: 0.5
+  _range: 3.5
 --- !u!1 &7980694403072073861
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +804,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 223e009b413a5004fbb113d758e6b403, type: 3}
+--- !u!1 &3440298492066233804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3031096431747768947, guid: 223e009b413a5004fbb113d758e6b403,
+    type: 3}
+  m_PrefabInstance: {fileID: 409541029137276863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5201939315437628569 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5593465627883909926, guid: 223e009b413a5004fbb113d758e6b403,
@@ -1050,6 +1087,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PS_Player Sand Trail
       objectReference: {fileID: 0}
+    - target: {fileID: 3549150303280088752, guid: 62be71f8819bd1847b26ba1cc7cb772d,
+        type: 3}
+      propertyPath: VelocityModule.y.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3549150303280088752, guid: 62be71f8819bd1847b26ba1cc7cb772d,
+        type: 3}
+      propertyPath: VelocityModule.z.scalar
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3549150303280088752, guid: 62be71f8819bd1847b26ba1cc7cb772d,
+        type: 3}
+      propertyPath: VelocityModule.inWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4448154598410125977, guid: 62be71f8819bd1847b26ba1cc7cb772d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1194,6 +1246,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3963eb3dc4fd2854d88bbb147a0923f1, type: 3}
+--- !u!1 &4820323610324808729 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4102921072116204622, guid: 3963eb3dc4fd2854d88bbb147a0923f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8797142174725910615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8530375986464481938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 897414730482307781, guid: 3963eb3dc4fd2854d88bbb147a0923f1,

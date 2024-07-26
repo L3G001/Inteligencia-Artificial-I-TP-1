@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Factory : MonoBehaviour
@@ -15,5 +13,10 @@ public class Factory : MonoBehaviour
     public T Creator<T>(string ObjectName) where T : MonoBehaviour
     {
         return Object.Instantiate(Resources.Load<T>(ObjectName));
+    }
+
+    public T Creator<T>(string ObjectName, Transform parent) where T : MonoBehaviour
+    {
+        return Object.Instantiate(Resources.Load<T>(ObjectName), parent);
     }
 }

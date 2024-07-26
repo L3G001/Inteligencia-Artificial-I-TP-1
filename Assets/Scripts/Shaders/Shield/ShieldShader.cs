@@ -16,6 +16,7 @@ public class ShieldShader : MonoBehaviour
     {
         _renderer = GetComponent<Renderer>();
         _cam = Camera.main;
+        _renderer.material.SetFloat("_Disolve_Value", -0.05f);
     }
     void Update()
     {
