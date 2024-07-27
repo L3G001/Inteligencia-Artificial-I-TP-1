@@ -25,6 +25,15 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 _inputVector;
 
+    private void OnDisable()
+    {
+        GameManager.instance._inputReader.MoveEvent -= HandleMove;
+        GameManager.instance._inputReader.JumpEvent -= HandleJump;
+        GameManager.instance._inputReader.JumpCancelledEvent -= HandleCancelledJump;
+        GameManager.instance._inputReader.SprintEvent -= HandleSprint;
+        GameManager.instance._inputReader.SprintCancelledEvent -= HandleCancelledSprint;
+    }
+
     void Start()
     {
         var _input = GameManager.instance._inputReader;

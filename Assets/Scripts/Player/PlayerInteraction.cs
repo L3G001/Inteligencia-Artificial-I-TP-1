@@ -21,6 +21,11 @@ public class PlayerInteraction : MonoBehaviour
         Gizmos.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * _range);
     }
 
+    private void OnDisable()
+    {
+        GameManager.instance._inputReader.InteractEvent -= HandleInteract;
+    }
+
     void Start()
     {
         GameManager.instance._inputReader.InteractEvent += HandleInteract;

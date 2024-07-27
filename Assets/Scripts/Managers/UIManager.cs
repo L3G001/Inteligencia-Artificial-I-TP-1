@@ -1,19 +1,23 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [SerializeField] private Material _dither, _outline;
     [SerializeField] private GameObject _pauseMenu = default;
+    public bool isPaused = default;
+    [SerializeField] private Material _dither, _outline, _portalEffect;
     [SerializeField] private ScriptableRendererFeature _outlineRenderFeature, _ditherRenderFeature;
     [SerializeField] private TMP_Dropdown _colorDepthDropdown, _outlineStyleDropdown;
     [SerializeField] private Toggle _ditherEffectToggle, _borderAnimationToggle;
-    public bool isPaused = default;
+    [SerializeField] private GameObject _portal;
+    [SerializeField] private float maxDistance = default;
+
+    private Vector2 _playerPosition, _targetPosition;
 
     void Awake()
     {
@@ -21,6 +25,12 @@ public class UIManager : MonoBehaviour
         else { Destroy(this); }
         Time.timeScale = 1;
         SetInitialValues();
+    }
+
+    private void OnDisable()
+    {
+        GameManager.instance._inputReader.PauseEvent -= HandlePause;
+        GameManager.instance._inputReader.ResumeEvent -= HandleResume;
     }
 
     private void Start()
@@ -44,6 +54,18 @@ public class UIManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             GameManager.instance._inputReader.SetGameplay();
+        }
+        _playerPosition = new Vector2(GameManager.instance.playerPosition.position.x, GameManager.instance.playerPosition.position.z);
+        _targetPosition = new Vector2(_portal.transform.position.x, _portal.transform.position.z);
+        if (Vector2.Distance(_playerPosition, _targetPosition) < maxDistance) { PortalEffect(); }
+        else
+        {
+            if (_portalEffect.GetFloat("_VignetteAmount") >= 0)
+            {
+                float newValue = Mathf.Lerp(_portalEffect.GetFloat("_VignetteAmount"), 0, Time.deltaTime * 0.7f);
+                if (newValue < 0.15f) { newValue = 0; }
+                _portalEffect.SetFloat("_VignetteAmount", newValue);
+            }
         }
     }
 
@@ -126,6 +148,16 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
+
+    void PortalEffect()
+    {
+        float distance = Vector2.Distance(_playerPosition, _targetPosition);
+        float normalizedDistance = Mathf.Clamp01(distance / maxDistance);
+        float invert = 1 - normalizedDistance;
+        float effectValue = invert * 1.04f;
+        _portalEffect.SetFloat("_VignetteAmount", effectValue + 0.2f);
+    }
+
     void SetInitialValues()
     {
         #region Dither

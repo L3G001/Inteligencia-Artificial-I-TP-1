@@ -9,10 +9,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Player")]
     public Animator staffAnimator;
-
     public ObjectPool<Bullet> fireBulletPool;
     public ObjectPool<Bullet> waterBulletPool;
-    public Transform poolParent;
+    public Transform poolParent, playerPosition;
 
     [Header("Puzzle")]
     public bool puzzle1, puzzle2, puzzle3;

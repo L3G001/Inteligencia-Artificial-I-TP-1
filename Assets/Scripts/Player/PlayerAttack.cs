@@ -18,6 +18,13 @@ public class PlayerAttack : MonoBehaviour
     private float _projectileSpeed;
     private Transform _ogParent;
 
+    private void OnDisable()
+    {
+        GameManager.instance._inputReader.AttackEvent -= AttackStartHandle;
+        GameManager.instance._inputReader.AttackCancelledEvent -= AttackCancelledHandle;
+        GameManager.instance._inputReader.ChangeWeaponEvent -= ChangeBulletHandle;
+    }
+
     void Start()
     {
         _canAttack = true;

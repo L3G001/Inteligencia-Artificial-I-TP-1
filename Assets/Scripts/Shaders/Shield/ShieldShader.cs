@@ -20,9 +20,6 @@ public class ShieldShader : MonoBehaviour
     }
     void Update()
     {
-        #region Always face the camera
-        transform.forward = _cam.transform.position - transform.position;
-        #endregion
         #region Zoom Adjustment
         Vector3 screenPoint = _cam.WorldToScreenPoint(transform.position);
         screenPoint.x = screenPoint.x / Screen.width;
@@ -30,7 +27,7 @@ public class ShieldShader : MonoBehaviour
         _renderer.material.SetVector("_Object_Screen_Position", screenPoint);
         #endregion
         #region Shield Toggle
-        if (_renderer.material.GetFloat("_Disolve_Value") >= 0.65f) { gameObject.GetComponent<Collider>().enabled = false; }
+        if (_renderer.material.GetFloat("_Disolve_Value") >= 0.65f) { gameObject.GetComponent<Collider>().enabled = false; _renderer.material.SetFloat("_Disolve_Value", 1.06f); }
         else { gameObject.GetComponent<Collider>().enabled = true; }
         #endregion
     }

@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 1527287871593268249}
   - {fileID: 5230095952474403797}
+  - {fileID: 4014323170819962341}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3115112060280554348
@@ -77,14 +78,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf26cc5f185236c42bcc7ca5f12336f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pauseMenu: {fileID: 0}
+  isPaused: 0
   _dither: {fileID: 2100000, guid: a8af73f130580ff47a61547713b3f876, type: 2}
   _outline: {fileID: 2100000, guid: 445294b89d7579f48bcb22b1dc85b088, type: 2}
-  _pauseMenu: {fileID: 0}
+  _portalEffect: {fileID: 2100000, guid: 34da8ab58ee3fa24ebe51765f1768d43, type: 2}
   _outlineRenderFeature: {fileID: -6899639863506039493, guid: c40be3174f62c4acf8c1216858c64956,
     type: 2}
   _ditherRenderFeature: {fileID: -183446073044148170, guid: c40be3174f62c4acf8c1216858c64956,
     type: 2}
-  isPaused: 0
+  _colorDepthDropdown: {fileID: 0}
+  _outlineStyleDropdown: {fileID: 0}
+  _ditherEffectToggle: {fileID: 0}
+  _borderAnimationToggle: {fileID: 0}
+  _portal: {fileID: 0}
+  maxDistance: 5
 --- !u!1 &5047882219519969303
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,3 +138,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: d89c037161cbfca408decb316af22797, type: 2}
+  staffAnimator: {fileID: 0}
+  fireBulletPool:
+    pool: []
+  waterBulletPool:
+    pool: []
+  poolParent: {fileID: 0}
+  playerPosition: {fileID: 0}
+  puzzle1: 0
+  puzzle2: 0
+  puzzle3: 0
+  puzzle1Mat: {fileID: 2100000, guid: 4f3c624a816f6a04a8561eea3d43bb7d, type: 2}
+  puzzle2Mat: {fileID: 2100000, guid: 33b23b07e12640a47b2ca253c721f8fc, type: 2}
+  puzzle3Mat: {fileID: 2100000, guid: bb039ce2f7b96c04785a588db5962a39, type: 2}
+  Shield: {fileID: 0}
+  puzflag: 0
+--- !u!1 &9049604946979102352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4014323170819962341}
+  - component: {fileID: 8842796737386469136}
+  m_Layer: 0
+  m_Name: PlayerUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4014323170819962341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9049604946979102352}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6679552030267141081}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8842796737386469136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9049604946979102352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5a873d9c0f50044b73273c7b6e31de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactUI: {fileID: 0}
