@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Portal : MonoBehaviour
@@ -8,6 +6,9 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        UIManager.Instance.LoadScene(_sceneToLoad);
+        if (other.gameObject.layer == 7)
+        {
+            UIManager.Instance.LoadScene(_sceneToLoad);
+        }
     }
 }

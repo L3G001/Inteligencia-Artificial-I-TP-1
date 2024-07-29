@@ -55,9 +55,12 @@ public class UIManager : MonoBehaviour
             Cursor.visible = false;
             GameManager.instance._inputReader.SetGameplay();
         }
-        _playerPosition = new Vector2(GameManager.instance.playerPosition.position.x, GameManager.instance.playerPosition.position.z);
-        _targetPosition = new Vector2(_portal.transform.position.x, _portal.transform.position.z);
-        if (Vector2.Distance(_playerPosition, _targetPosition) < maxDistance) { PortalEffect(); }
+        if (_portal != null)
+        {
+            _playerPosition = new Vector2(GameManager.instance.playerPosition.position.x, GameManager.instance.playerPosition.position.z);
+            _targetPosition = new Vector2(_portal.transform.position.x, _portal.transform.position.z);
+            if (Vector2.Distance(_playerPosition, _targetPosition) < maxDistance) { PortalEffect(); }
+        }
         else
         {
             if (_portalEffect.GetFloat("_VignetteAmount") >= 0)
