@@ -41,35 +41,35 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Menu") { Debug.Log(SceneManager.GetActiveScene().name); return; }
-        if (isPaused)
+        if (SceneManager.GetActiveScene().name == "Menu" || SceneManager.GetActiveScene().name == "End") 
         {
-            Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
         else
         {
-            Time.timeScale = 1;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            GameManager.instance._inputReader.SetGameplay();
+            if (isPaused)
+            {
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                GameManager.instance._inputReader.SetGameplay();
+            }
         }
         if (_portal != null)
         {
             _playerPosition = new Vector2(GameManager.instance.playerPosition.position.x, GameManager.instance.playerPosition.position.z);
             _targetPosition = new Vector2(_portal.transform.position.x, _portal.transform.position.z);
             if (Vector2.Distance(_playerPosition, _targetPosition) < maxDistance) { PortalEffect(); }
+            else { PortalEffectOut(); }
         }
-        else
-        {
-            if (_portalEffect.GetFloat("_VignetteAmount") >= 0)
-            {
-                float newValue = Mathf.Lerp(_portalEffect.GetFloat("_VignetteAmount"), 0, Time.deltaTime * 0.7f);
-                if (newValue < 0.15f) { newValue = 0; }
-                _portalEffect.SetFloat("_VignetteAmount", newValue);
-            }
-        }
+        else { if (_portalEffect.GetFloat("_VignetteAmount") >= 0) { PortalEffectOut(); } }
     }
 
     public void LoadScene(string sceneName)
@@ -159,6 +159,13 @@ public class UIManager : MonoBehaviour
         float invert = 1 - normalizedDistance;
         float effectValue = invert * 1.04f;
         _portalEffect.SetFloat("_VignetteAmount", effectValue + 0.2f);
+    }
+
+    void PortalEffectOut()
+    {
+        float newValue = Mathf.Lerp(_portalEffect.GetFloat("_VignetteAmount"), 0, Time.deltaTime * 0.7f);
+        if (newValue < 0.15f) { newValue = 0; }
+        _portalEffect.SetFloat("_VignetteAmount", newValue);
     }
 
     void SetInitialValues()

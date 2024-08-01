@@ -52,11 +52,11 @@ public class Bullet : MonoBehaviour
         if (other.TryGetComponent<IDamageable>(out obj))
         {
             float scaleModifier = gameObject.transform.localScale.x;
-            obj.TakeDamage(_bulletDamage * scaleModifier);
+            obj.TakeDamage(_bulletDamage);
 
             if (bulletType == BulletType.Fire)
             {
-                obj.DOT(_dotDamage * scaleModifier, _dotDuration);
+                obj.DOT(_dotDamage, _dotDuration);
             }
         }
 

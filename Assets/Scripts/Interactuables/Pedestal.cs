@@ -52,7 +52,6 @@ public class Pedestal : Interactuable
             }
             _pedestal.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
             completed = true;
-            GameManager.instance.puzflag += 1;
         }
     }
 

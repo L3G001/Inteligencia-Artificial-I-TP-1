@@ -49,6 +49,11 @@ Material:
     - _CastShadows: 1
     - _Cull: 0
     - _Depth: -0.17
+    - _Distortion_Intensity: 1
+    - _Distortion_Scale: 5
+    - _Distortion_Time_Scale: 10
+    - _Distortion_Twirl_Strength: 10
+    - _Distortion_intensity: 0
     - _DstBlend: 10
     - _Portal_Height: 1
     - _Portal_Intensity: 1.58
@@ -64,6 +69,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
+    - _Distortion_Movement: {r: 1, g: 0.1, b: 0, a: 0}
     - _Portal_Color_1: {r: 1.6121701, g: 0, b: 1.4349158, a: 1}
     - _Portal_Color_2: {r: 0.15812616, g: 0, b: 0.2924528, a: 1}
     - _Twirl_Speed: {r: 0.1, g: 0.2, b: 0, a: 0}

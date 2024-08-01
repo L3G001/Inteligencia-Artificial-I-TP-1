@@ -17,8 +17,9 @@ public class GameManager : MonoBehaviour
     public bool puzzle1, puzzle2, puzzle3;
     private bool _puzzle1done, _puzzle2done, _puzzle3done;
     public Material puzzle1Mat, puzzle2Mat, puzzle3Mat;
+    public List<Pedestal> puzz1Ped, puzz2Ped, puzz3Ped;
     public ShieldShader Shield;
-    public float puzflag;
+    private float _puz1flag, _puz2flag, _puz3flag, _totalPuz1Peds, _totalPuz2Peds, _totalPuz3Peds;
 
     void Awake()
     {
@@ -33,32 +34,59 @@ public class GameManager : MonoBehaviour
         puzzle1Mat.DisableKeyword("_EMISSION");
         puzzle2Mat.DisableKeyword("_EMISSION");
         puzzle3Mat.DisableKeyword("_EMISSION");
+        _totalPuz1Peds = puzz1Ped.Count;
+        _totalPuz2Peds = puzz2Ped.Count;
+        _totalPuz3Peds = puzz3Ped.Count;
     }
 
     private void Update()
     {
-        if (puzflag >= 4) { puzzle1 = true; }
+        if (puzz1Ped != null)
+        {
+            foreach (Pedestal ped in puzz1Ped)
+            {
+                if (ped.completed) { _puz1flag += 1; puzz1Ped.Remove(ped); }
+                if (_puz1flag >= _totalPuz1Peds) { puzzle1 = true; }
+            }
+        }
+        if (puzz2Ped != null)
+        {
+            foreach (Pedestal ped in puzz2Ped)
+            {
+                if (ped.completed) { _puz2flag += 1; puzz2Ped.Remove(ped); }
+                if (_puz2flag >= _totalPuz2Peds) { puzzle2 = true; }
+            }
+        }
+        if (puzz3Ped != null)
+        {
+            foreach (Pedestal ped in puzz3Ped)
+            {
+                if (ped.completed) { _puz3flag += 1; puzz3Ped.Remove(ped); }
+                if (_puz3flag >= _totalPuz3Peds) { puzzle3 = true; }
+            }
+        }
+        /*if (puzflag >= 4) { puzzle1 = true; }
         if (puzflag >= 8) { puzzle2 = true; }
-        if (puzflag >= 10) { puzzle3 = true; }
-        if (puzzle1 && !_puzzle1done) 
-        { 
-            Shield.OpenCloseShield(); 
+        if (puzflag >= 10) { puzzle3 = true; }*/
+        if (puzzle1 && !_puzzle1done)
+        {
+            Shield.OpenCloseShield();
             puzzle1Mat.EnableKeyword("_EMISSION");
             _puzzle1done = true;
         }
-        if (puzzle2 && !_puzzle2done) 
-        { 
-            Shield.OpenCloseShield(); 
+        if (puzzle2 && !_puzzle2done)
+        {
+            Shield.OpenCloseShield();
             puzzle2Mat.EnableKeyword("_EMISSION");
             _puzzle2done = true;
         }
-        if (puzzle3 && !_puzzle3done) 
-        { 
-            Shield.OpenCloseShield(); 
+        if (puzzle3 && !_puzzle3done)
+        {
+            Shield.OpenCloseShield();
             puzzle3Mat.EnableKeyword("_EMISSION");
             _puzzle3done = true;
         }
-        if(Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             Shield.OpenCloseShield();
         }

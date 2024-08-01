@@ -46,7 +46,7 @@ Material:
     - _Circle_Circel_Size: 2
     - _Circle_Height: 1.5
     - _Circle_Width: 1.5
-    - _Color_Resolution: 64
+    - _Color_Resolution: 15000000
     - _DitherStrength: 0
     - _Dither_Spread: 0.05
     - _Dots_Tiling: 100
