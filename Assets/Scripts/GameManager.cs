@@ -8,11 +8,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public Pathfinding pathfinding;
+
     public MyGrid grid;
     public LeaderConfig leaderConfig;
     public BoidConfig boidConfig;
-    
-    public LayerMask layerMask;
+    public LayerMask FloorMask;
+
+    [InspectorName("MapLayerMask")]public LayerMask layerMask;
 
     private void Awake()
     {

@@ -7,7 +7,7 @@ public class IdleLeaderState : State<Enums.LeaderStateID>
     public Vector3 LastPos;
 
 
-    IdleLeaderState(FSM<Enums.LeaderStateID> myfsm, LeaderCC steeringAgent, Node targetNode)
+    public IdleLeaderState(FSM<Enums.LeaderStateID> myfsm, LeaderCC steeringAgent, Node targetNode)
     {
         fsm = myfsm;
         this.steeringAgent = steeringAgent;
@@ -17,6 +17,7 @@ public class IdleLeaderState : State<Enums.LeaderStateID>
     public override void OnEnter()
     {
         LastPos = targetNode.transform.position;
+        steeringAgent.myDebugerMaterial.color = Color.cyan;
     }
 
     public override void OnExit()

@@ -5,9 +5,9 @@ public class LeaderPathFind : State<Enums.LeaderStateID>
     LeaderCC leader;
     public Node targetNode;
     public Vector3 LastPos;
-    
 
-    LeaderPathFind(FSM<Enums.LeaderStateID> myfsm, LeaderCC steeringAgent,Node targetNode)
+
+    public LeaderPathFind(FSM<Enums.LeaderStateID> myfsm, LeaderCC steeringAgent,Node targetNode)
     {
         fsm = myfsm;
         leader = steeringAgent;
@@ -19,6 +19,7 @@ public class LeaderPathFind : State<Enums.LeaderStateID>
     {
         leader.Path = null;
         leader.Path = GameManager.Instance.pathfinding.CalculateTheta(GameManager.Instance.grid.GetNearesNode(leader.transform.position), targetNode);
+        leader.myDebugerMaterial.color = Color.yellow;
 
     }
 
