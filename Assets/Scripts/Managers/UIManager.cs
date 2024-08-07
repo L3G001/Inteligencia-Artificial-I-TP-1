@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Menu" || SceneManager.GetActiveScene().name == "End") 
+        if (SceneManager.GetActiveScene().name == "Menu" || SceneManager.GetActiveScene().name == "End" || SceneManager.GetActiveScene().name == "IA1") 
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

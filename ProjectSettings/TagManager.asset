@@ -14,11 +14,11 @@ TagManager:
   - Trail Particle
   - Player
   - Projectile
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - Wall
+  - BlueTeam
+  - RedTeam
+  - Floor
   - 
   - 
   - 

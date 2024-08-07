@@ -65,9 +65,6 @@ public class GameManager : MonoBehaviour
                 if (_puz3flag >= _totalPuz3Peds) { puzzle3 = true; }
             }
         }
-        /*if (puzflag >= 4) { puzzle1 = true; }
-        if (puzflag >= 8) { puzzle2 = true; }
-        if (puzflag >= 10) { puzzle3 = true; }*/
         if (puzzle1 && !_puzzle1done)
         {
             Shield.OpenCloseShield();

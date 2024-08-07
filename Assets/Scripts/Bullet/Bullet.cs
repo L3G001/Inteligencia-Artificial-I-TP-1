@@ -47,11 +47,9 @@ public class Bullet : MonoBehaviour
         {
             return;
         }
-
         IDamageable obj;
         if (other.TryGetComponent<IDamageable>(out obj))
         {
-            float scaleModifier = gameObject.transform.localScale.x;
             obj.TakeDamage(_bulletDamage);
 
             if (bulletType == BulletType.Fire)
@@ -59,7 +57,12 @@ public class Bullet : MonoBehaviour
                 obj.DOT(_dotDamage, _dotDuration);
             }
         }
-
+        IEntity obj2;
+        if (other.TryGetComponent<IEntity>(out obj2))
+        {
+            obj2.speedModifier = _speedReduction;
+            obj2.SpeedReset();
+        }
         gameObject.SetActive(false);
     }
 
