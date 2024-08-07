@@ -49,8 +49,8 @@ public class SteeringAgent : MonoBehaviour
     public Vector3 Arrive(Vector3 targetPos)
     {
         float dist = Vector3.Distance(transform.position, targetPos);
-        if (dist > _viewRadius) return Seek(targetPos);
-        return Seek(targetPos, _maxSpeed * (dist / _viewRadius));
+        if (dist > GameManager.Instance.boidConfig.viewRadius) return Seek(targetPos);
+        return Seek(targetPos, _maxSpeed * (dist / GameManager.Instance.boidConfig.viewRadius));
     }
 
     public Vector3 Pursuit(SteeringAgent targetAgent)

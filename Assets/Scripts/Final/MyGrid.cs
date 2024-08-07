@@ -25,7 +25,7 @@ public class MyGrid : MonoBehaviour
                 if (node == otherNodes)
                     continue;
 
-                if(GameManager.Instance.InLineOfSight(node.transform.position, otherNodes.transform.position,node.nodeCollider,otherNodes.nodeCollider))  
+                if(GameManager.Instance.NodeInLineOfSight(node.transform.position, otherNodes.transform.position,node.nodeCollider,otherNodes.nodeCollider))  
                     node.neighbors.Add(otherNodes);
             }
         }

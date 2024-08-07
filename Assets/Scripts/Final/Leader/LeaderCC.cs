@@ -12,6 +12,9 @@ public class LeaderCC : SteeringAgent
     // Start is called before the first frame update
     void Start()
     {
+        if (RedElseBlue) { GameManager.Instance.boidConfig.RedAgents.Add(this); }
+        else { GameManager.Instance.boidConfig.BlueAgents.Add(this); }
+
         _fsm = new FSM<Enums.LeaderStateID>();
 
         _fsm.AddState(Enums.LeaderStateID.Idle, new IdleLeaderState(_fsm, this, RedElseBlue ? GameManager.Instance.leaderConfig.redLeaderNode : GameManager.Instance.leaderConfig.blueLeaderNode));

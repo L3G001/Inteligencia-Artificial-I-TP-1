@@ -10,6 +10,6 @@ public class Enums
     }
     public enum BoidStateID
     {
-
+        LeaderFloking,PathFindToLead,PathfindToBase,FollowPath,Escape,Atack
     }
 }
