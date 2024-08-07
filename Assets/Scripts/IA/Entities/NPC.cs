@@ -31,11 +31,14 @@ public class NPC : SteeringAgent, IEntity, IDamageable
         if (redNPC) { GameManagerIA.instance.npcConfig.redAgents.Add(this); }
         else { GameManagerIA.instance.npcConfig.blueAgents.Add(this); }
 
-        _fsm.AddState(StatesEnums.NPCStateID.Idle, new IdleStateNPC(this, ));
-        _fsm.AddState(StatesEnums.NPCStateID.Chase, new ChaseStateNPC(this, ));
-        _fsm.AddState(StatesEnums.NPCStateID.Attack, new AttackStateNPC(this, ));
+        _fsm = new FSM<StatesEnums.NPCStateID>();
+        //_fsm.AddState(StatesEnums.NPCStateID.Idle, new IdleStateNPC(this, ));
+        _fsm.AddState(StatesEnums.NPCStateID.Chase, new ChaseStateNPC(this));
+        _fsm.AddState(StatesEnums.NPCStateID.Follow, new FollowStateNPC(this));
+        //_fsm.AddState(StatesEnums.NPCStateID.Attack, new AttackStateNPC(this, ));
         _fsm.AddState(StatesEnums.NPCStateID.Pathfind, new PathFindStateNPC(this, redNPC ? GameManagerIA.instance.leaderConfig.redLeader : GameManagerIA.instance.leaderConfig.blueLeader));
-        _fsm.ChangeState(StatesEnums.NPCStateID.Escape, new EscapeStateNPC(this));
+        //_fsm.ChangeState(StatesEnums.NPCStateID.Escape, new EscapeStateNPC(this));
+        _fsm.ChangeState(StatesEnums.NPCStateID.Pathfind);
 
         speedModifier = 1;
         currentlife = GameManagerIA.instance.npcConfig.maxLife;

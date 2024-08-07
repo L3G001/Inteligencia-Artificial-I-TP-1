@@ -4,26 +4,19 @@ using UnityEngine;
 
 public class FollowStateNPC : State<StatesEnums.NPCStateID>
 {
-    Vector3 lastPosition;
-    Node targetNode;
     NPC _npc;
 
-    public FollowStateNPC(NPC npc, Node target)
+    public FollowStateNPC(NPC npc)
     {
         _npc = npc;
-        targetNode = target;
     }
 
-    public override void OnEnter()
-    {
-        lastPosition = targetNode.transform.position;
-    }
-
+    public override void OnEnter() { }
     public override void OnExit() { }
 
     public override void OnUpdate()
     {
-
+        FollowPath();
     }
 
     void FollowPath()
@@ -43,6 +36,7 @@ public class FollowStateNPC : State<StatesEnums.NPCStateID>
         {
             fsm.ChangeState(StatesEnums.NPCStateID.Idle);
         }
+        _npc.AddForce(_npc.Spacing(_npc.redNPC ? GameManagerIA.instance.npcConfig.redAgents : GameManagerIA.instance.npcConfig.blueAgents, GameManagerIA.instance.npcConfig.separationRadius) * GameManagerIA.instance.npcConfig.separationWeight);
         _npc.Move();
     }
 }

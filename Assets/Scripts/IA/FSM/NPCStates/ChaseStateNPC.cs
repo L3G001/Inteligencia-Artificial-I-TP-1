@@ -4,28 +4,41 @@ using UnityEngine;
 
 public class ChaseStateNPC : State<StatesEnums.NPCStateID>
 {
-    Vector3 lastPosition;
-    Node targetNode;
     NPC _npc;
 
-    public ChaseStateNPC(NPC npc, Node target)
+    public ChaseStateNPC(NPC npc)
     {
         _npc = npc;
-        targetNode = target;
     }
 
-    public override void OnEnter()
-    {
-        lastPosition = targetNode.transform.position;
-    }
-
-    public override void OnExit()
-    {
-
-    }
+    public override void OnEnter() { }
+    public override void OnExit() { }
 
     public override void OnUpdate()
     {
+        LeaderFlocking();
+    }
 
+    void LeaderFlocking()
+    {
+        var npcs = _npc.redNPC ? GameManagerIA.instance.npcConfig.redAgents : GameManagerIA.instance.npcConfig.blueAgents;
+        _npc.AddForce(_npc.Spacing(npcs, GameManagerIA.instance.npcConfig.separationRadius) * GameManagerIA.instance.npcConfig.separationWeight);
+        if (_npc.redNPC)
+        {
+            if(GameManagerIA.instance.InLineOfSight(_npc.transform.position, GameManagerIA.instance.leaderConfig.redLeader.transform.position))
+            {
+                _npc.AddForce(_npc.Arrive(GameManagerIA.instance.leaderConfig.redLeader.transform.position)*GameManagerIA.instance.npcConfig.arriveWeight);
+                _npc.AddForce(_npc.Spacing(GameManagerIA.instance.npcConfig.redAgents, GameManagerIA.instance.npcConfig.separationRadius) * GameManagerIA.instance.npcConfig.separationWeight);
+            }
+        }
+        else
+        {
+            if (GameManagerIA.instance.InLineOfSight(_npc.transform.position, GameManagerIA.instance.leaderConfig.blueLeader.transform.position))
+            {
+                _npc.AddForce(_npc.Arrive(GameManagerIA.instance.leaderConfig.blueLeader.transform.position) * GameManagerIA.instance.npcConfig.arriveWeight);
+                _npc.AddForce(_npc.Spacing(GameManagerIA.instance.npcConfig.blueAgents, GameManagerIA.instance.npcConfig.separationRadius) * GameManagerIA.instance.npcConfig.separationWeight);
+            }
+        }
+        fsm.ChangeState(StatesEnums.NPCStateID.Pathfind);
     }
 }
