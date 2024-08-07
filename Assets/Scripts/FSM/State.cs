@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State
+public abstract class State <T> where T : System.Enum
 {
-    public FSM fsm;
+    public FSM<T> fsm;
 
     public abstract void OnEnter();
     public abstract void OnExit();

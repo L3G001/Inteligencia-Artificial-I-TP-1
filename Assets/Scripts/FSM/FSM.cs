@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FSM
+public class FSM <T> where T : System.Enum
 {
-    State currentState;
-    Dictionary<StateID, State> states = new Dictionary<StateID, State>();
+    State<T> currentState;
+    Dictionary<T, State<T>> states = new Dictionary<T, State<T>>();
 
-    public void AddState(StateID id, State state)
+    public void AddState(T id, State<T> state)
     {
         states.Add(id, state);
         state.fsm = this;
@@ -18,7 +18,7 @@ public class FSM
         currentState.OnUpdate();
     }
 
-    public void ChangeState(StateID id)
+    public void ChangeState(T id)
     {
         if (currentState != null)
         {
@@ -31,12 +31,4 @@ public class FSM
 
 
 }
-public enum StateID
-{
-    Idle,
-    Patrol,
-    Attack,
-    Docking,
-    LeavingDock,
-    Selling
-}   
+  

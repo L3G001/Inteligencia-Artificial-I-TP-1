@@ -6,12 +6,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [Header("Map Configs")]
-    [SerializeField] float _boundHeight;
-    [SerializeField] float _boundWidth;
-    public HunterConfig hunterConfig;
+
+    public Pathfinding pathfinding;
+    public MyGrid grid;
+    public LeaderConfig leaderConfig;
     public BoidConfig boidConfig;
-    public FoodConfig foodConfig;
+    
+    public LayerMask layerMask;
 
     private void Awake()
     {
@@ -19,70 +20,68 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void OnDrawGizmos()
+    public bool InLineOfSight(Vector3 start, Vector3 end)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3 (_boundWidth,_boundHeight));
+        var dir = end - start;
+
+        return !Physics.Raycast(start, dir, dir.magnitude, layerMask);
+    }
+    public bool InLineOfSight(Vector3 start, Vector3 end,Collider MyColider,Collider OtherColither)
+    {
+        var dir = end - start;
+         
+        if(Physics.Raycast(start, dir, out RaycastHit hit ,dir.magnitude, layerMask))
+        {
+            return hit.collider == MyColider || hit.collider == OtherColither;
+        }
+        else
+        {
+            return true;
+        }
+
     }
 
-    public Vector3 BoundPosition (Vector3 pos)
-    {
-        float height = _boundHeight / 2;
-        float width = _boundWidth / 2;
-        if (pos.y > height) pos.y = -height;
-        if (pos.y < -height) pos.y = height;
-        if (pos.x > width) pos.x = -width;
-        if (pos.x < -width) pos.x = width;
 
-        return pos;
-    }
+
+
+
+
+
+
+
+
+
+
 }
 [System.Serializable]
 public class BoidConfig
 {
-    public float alignmentWeight = 1;
+    public List<SteeringAgent> BlueAgents = new List<SteeringAgent>();
+    public List<SteeringAgent> RedAgents = new List<SteeringAgent>();
+
+    public Transform BlueBase,RedBase;
+
     public float separationWeight = 1;
-    public float cohesionWeight = 1;
-    public float separationRadius, cohesionRadius, viewRadius;
+  
+    public float separationRadius, viewRadius;
+
     public float evadeWeight = 1;
+
     public float arriveWeight = 1;
+
     public float obstacleWeight = 1;
-    public List<SteeringAgent> allAgents = new List<SteeringAgent>();
-    public GameObject food;
+    
 }
 [System.Serializable]
-public class HunterConfig
+public class LeaderConfig
 {
-    [Header("ShootConfig")]
-    public float shootRadius;
+    
+    public SteeringAgent blueLeader;
+    public SteeringAgent redLeader;
 
-    [Header("FuelConfig")]
-    public float hunterCurrentFuel;
-    public float hunterMaxFuel;
-    public float hunterPatrolCost;
-    public float hunterShootCost;
-
-    [Header("HuntProf")]
-    public int hunterGold;
-    public int huntedBoids;
-    public int boidsInBoat;
-    public float sellTime;
-    public int duckPrice;
-
-    public Hunter hunter;
-
-    public WaypointManagers waypointManagers;
-}
-[System.Serializable]
-public class FoodConfig
-{
-    public WaypointManagers waypointManagers;
+    public Node blueLeaderNode;
+    public Node redLeaderNode;
+       
 }
 
-[System.Serializable]
-public class WaypointManagers
-{
-    public WaypointManager PatrolManager;
-    public WaypointManager FoodManager;
-    public WaypointManager DockManager;
-}
+
