@@ -61,7 +61,13 @@ public class NPC : SteeringAgent, IEntity, IDamageable
         currentlife = GameManagerIA.instance.npcConfig.maxLife;
         lifeBar.fillAmount = currentlife / GameManagerIA.instance.npcConfig.maxLife;
         _fsm.OnUpdate();
-        if ()
+        foreach (var agent in redNPC ? GameManagerIA.instance.npcConfig.blueAgents : GameManagerIA.instance.npcConfig.redAgents)
+        {
+            if (InFOV(agent.transform))
+            {
+                Attack();
+            }
+        }
     }
 
     public void TakeDamage(float damage)
@@ -82,6 +88,21 @@ public class NPC : SteeringAgent, IEntity, IDamageable
         StartCoroutine(Cooldown());
     }
 
+    public bool InFOV(Transform obj)
+    {
+        var dir = obj.position - transform.position;
+
+        if (dir.magnitude <= GameManagerIA.instance.npcConfig.viewRadius)
+        {
+            if (Vector3.Angle(transform.right, dir) <= GameManagerIA.instance.npcConfig.viewAngle * 0.5f)
+            {
+                return GameManagerIA.instance.InLineOfSight(transform.position, obj.position);
+            }
+        }
+
+        return false;
+    }
+
     IEnumerator DOTTimer(float dmg, float duration)
     {
         for (int i = 0; i < duration; i++)
@@ -91,7 +112,7 @@ public class NPC : SteeringAgent, IEntity, IDamageable
         }
     }
 
-    IEnumerator Cooldown() { yield return new WaitForSeconds(1); }
+    IEnumerator Cooldown() { yield return new WaitForSeconds(2); }
 }
 
 public enum AttackType

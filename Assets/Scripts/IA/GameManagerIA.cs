@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManagerIA : MonoBehaviour
 {
     public static GameManagerIA instance;
-    public Enemy enemy;
     public LayerMask layerMask, floorLayerMask, obstacleLayerMask;
 
     public Node redLeaderTarget, blueLeaderTarget;
@@ -40,7 +39,7 @@ public class NPCConfig
 
     public Node redBase, blueBase;
 
-    public float separationRadius, viewRadius, viewRange;
+    public float separationRadius, viewRadius, viewRange, viewAngle;
     public float separationWeight, arriveWeight, obstacleWeight;
     public float maxLife;
 }
