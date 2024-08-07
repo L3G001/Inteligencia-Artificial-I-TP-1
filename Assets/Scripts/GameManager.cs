@@ -78,6 +78,10 @@ public class BoidConfig
 
     public float obstacleWeight = 1;
 
+    public Bullet Bullet;
+    
+
+
 }
 [System.Serializable]
 public class LeaderConfig

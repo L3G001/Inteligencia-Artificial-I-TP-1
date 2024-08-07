@@ -2,26 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoidFollowPath : State<Enums.BoidStateID>
+public class Escape : State<Enums.BoidStateID>
 {
     Boid boid;
-    public BoidFollowPath(Boid steeringAgent)
+    public Escape(Boid steeringAgent)
     {
         boid = steeringAgent;
     }
     public override void OnEnter()
     {
-       
+
     }
 
     public override void OnExit()
     {
-       
+
     }
 
     public override void OnUpdate()
     {
-        if(boid.life<40)fsm.ChangeState(Enums.BoidStateID.PathfindToBase);
         FollowMyPath();
     }
     void FollowMyPath()
@@ -40,7 +39,7 @@ public class BoidFollowPath : State<Enums.BoidStateID>
         }
         else
         {
-            fsm.ChangeState(Enums.BoidStateID.LeaderFloking);
+            fsm.ChangeState(Enums.BoidStateID.InBase);
         }
         boid.Spece();
         boid.Move();
