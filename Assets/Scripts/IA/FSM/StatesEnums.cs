@@ -14,11 +14,9 @@ public class StatesEnums : MonoBehaviour
 
     public enum NPCStateID
     {
-        Idle,
         Pathfind,
         Follow,
         Chase,
-        Attack,
         Escape
     }
 }

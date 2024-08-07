@@ -32,13 +32,12 @@ public class NPC : SteeringAgent, IEntity, IDamageable
         else { GameManagerIA.instance.npcConfig.blueAgents.Add(this); }
 
         _fsm = new FSM<StatesEnums.NPCStateID>();
-        //_fsm.AddState(StatesEnums.NPCStateID.Idle, new IdleStateNPC(this, ));
+
+        _fsm.AddState(StatesEnums.NPCStateID.Pathfind, new PathFindStateNPC(this, redNPC ? GameManagerIA.instance.leaderConfig.redLeader : GameManagerIA.instance.leaderConfig.blueLeader));
         _fsm.AddState(StatesEnums.NPCStateID.Chase, new ChaseStateNPC(this));
         _fsm.AddState(StatesEnums.NPCStateID.Follow, new FollowStateNPC(this));
-        //_fsm.AddState(StatesEnums.NPCStateID.Attack, new AttackStateNPC(this, ));
-        _fsm.AddState(StatesEnums.NPCStateID.Pathfind, new PathFindStateNPC(this, redNPC ? GameManagerIA.instance.leaderConfig.redLeader : GameManagerIA.instance.leaderConfig.blueLeader));
-        //_fsm.ChangeState(StatesEnums.NPCStateID.Escape, new EscapeStateNPC(this));
-        _fsm.ChangeState(StatesEnums.NPCStateID.Pathfind);
+        _fsm.AddState(StatesEnums.NPCStateID.Escape, new EscapeStateNPC(this, redNPC ? GameManagerIA.instance.npcConfig.redBase : GameManagerIA.instance.npcConfig.blueBase));
+        _fsm.ChangeState(StatesEnums.NPCStateID.Chase);
 
         speedModifier = 1;
         currentlife = GameManagerIA.instance.npcConfig.maxLife;
@@ -49,14 +48,20 @@ public class NPC : SteeringAgent, IEntity, IDamageable
         }
         if (Vector3.Distance(transform.position, redNPC ? GameManagerIA.instance.npcConfig.redBase.transform.position : GameManagerIA.instance.npcConfig.blueBase.transform.position) < 0.5f)
         {
-            currentlife = GameManagerIA.instance.leaderConfig.maxLife;
+            currentlife += 10 * Time.deltaTime;
+            if (currentlife >= GameManagerIA.instance.npcConfig.maxLife)
+            {
+                currentlife = GameManagerIA.instance.npcConfig.maxLife;
+            }
         }
     }
 
     void Update()
     {
+        currentlife = GameManagerIA.instance.npcConfig.maxLife;
         lifeBar.fillAmount = currentlife / GameManagerIA.instance.npcConfig.maxLife;
         _fsm.OnUpdate();
+        if ()
     }
 
     public void TakeDamage(float damage)
@@ -69,6 +74,14 @@ public class NPC : SteeringAgent, IEntity, IDamageable
         StartCoroutine(DOTTimer(damage, duration));
     }
 
+    public void Attack()
+    {
+        var currentBullet = _currentPool.GetObject();
+        currentBullet.transform.position = bulletSpawner.transform.position;
+        currentBullet.transform.rotation = bulletSpawner.transform.rotation;
+        StartCoroutine(Cooldown());
+    }
+
     IEnumerator DOTTimer(float dmg, float duration)
     {
         for (int i = 0; i < duration; i++)
@@ -77,6 +90,8 @@ public class NPC : SteeringAgent, IEntity, IDamageable
             yield return new WaitForSeconds(1);
         }
     }
+
+    IEnumerator Cooldown() { yield return new WaitForSeconds(1); }
 }
 
 public enum AttackType

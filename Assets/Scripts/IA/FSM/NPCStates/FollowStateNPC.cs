@@ -16,6 +16,7 @@ public class FollowStateNPC : State<StatesEnums.NPCStateID>
 
     public override void OnUpdate()
     {
+        if (_npc.currentlife <= 10) { fsm.ChangeState(StatesEnums.NPCStateID.Escape); }
         FollowPath();
     }
 
@@ -34,7 +35,7 @@ public class FollowStateNPC : State<StatesEnums.NPCStateID>
         }
         else
         {
-            fsm.ChangeState(StatesEnums.NPCStateID.Idle);
+            fsm.ChangeState(StatesEnums.NPCStateID.Chase);
         }
         _npc.AddForce(_npc.Spacing(_npc.redNPC ? GameManagerIA.instance.npcConfig.redAgents : GameManagerIA.instance.npcConfig.blueAgents, GameManagerIA.instance.npcConfig.separationRadius) * GameManagerIA.instance.npcConfig.separationWeight);
         _npc.Move();

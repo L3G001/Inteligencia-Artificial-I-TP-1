@@ -151,8 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ba0059f5dd9484b85f906e38376694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxForce: 5
-  _maxSpeed: 10
+  _maxForce: 2
+  _maxSpeed: 0.7
   _obstacle:
     serializedVersion: 2
     m_Bits: 1536
@@ -161,6 +161,7 @@ MonoBehaviour:
   redNPC: 0
   bulletSpawner: {fileID: 2309014122769002855}
   lifeBar: {fileID: 3539386297335089022}
+  path: []
 --- !u!1 &4098379023482736281
 GameObject:
   m_ObjectHideFlags: 0

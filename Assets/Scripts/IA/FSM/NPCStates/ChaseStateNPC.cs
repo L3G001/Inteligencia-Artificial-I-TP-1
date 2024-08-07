@@ -16,6 +16,7 @@ public class ChaseStateNPC : State<StatesEnums.NPCStateID>
 
     public override void OnUpdate()
     {
+        if (_npc.currentlife <= 10) { fsm.ChangeState(StatesEnums.NPCStateID.Escape); }
         LeaderFlocking();
     }
 
