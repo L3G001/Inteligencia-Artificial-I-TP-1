@@ -37,7 +37,7 @@ public class Grid : MonoBehaviour
         {
             float distance = Vector3.Distance(node.transform.position, position);
 
-            if (distance < minDistance)
+            if (distance < minDistance && GameManagerIA.instance.InLineOfSight(position, node.transform.position))
             {
                 minDistance = distance;
                 nearestNode = node;

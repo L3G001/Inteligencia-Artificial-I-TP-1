@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPC : SteeringAgent, IEntity, IDamageable
 {
@@ -7,6 +9,8 @@ public class NPC : SteeringAgent, IEntity, IDamageable
     public AttackType attackType;
     public bool redNPC;
     public GameObject bulletSpawner;
+    public Image lifeBar;
+    public List<Node> path;
 
     public float currentlife { get; set; }
     public float speedModifier { get; set; }
@@ -26,13 +30,30 @@ public class NPC : SteeringAgent, IEntity, IDamageable
     {
         if (redNPC) { GameManagerIA.instance.npcConfig.redAgents.Add(this); }
         else { GameManagerIA.instance.npcConfig.blueAgents.Add(this); }
+
+        _fsm.AddState(StatesEnums.NPCStateID.Idle, new IdleStateNPC(this, ));
+        _fsm.AddState(StatesEnums.NPCStateID.Chase, new ChaseStateNPC(this, ));
+        _fsm.AddState(StatesEnums.NPCStateID.Attack, new AttackStateNPC(this, ));
+        _fsm.AddState(StatesEnums.NPCStateID.Pathfind, new PathFindStateNPC(this, redNPC ? GameManagerIA.instance.leaderConfig.redLeader : GameManagerIA.instance.leaderConfig.blueLeader));
+        _fsm.ChangeState(StatesEnums.NPCStateID.Escape, new EscapeStateNPC(this));
+
         speedModifier = 1;
         currentlife = GameManagerIA.instance.npcConfig.maxLife;
+        if (currentlife <= 0)
+        {
+            gameObject.transform.position = redNPC ? GameManagerIA.instance.npcConfig.redBase.transform.position : GameManagerIA.instance.npcConfig.blueBase.transform.position;
+            currentlife = GameManagerIA.instance.npcConfig.maxLife;
+        }
+        if (Vector3.Distance(transform.position, redNPC ? GameManagerIA.instance.npcConfig.redBase.transform.position : GameManagerIA.instance.npcConfig.blueBase.transform.position) < 0.5f)
+        {
+            currentlife = GameManagerIA.instance.leaderConfig.maxLife;
+        }
     }
 
     void Update()
     {
-        
+        lifeBar.fillAmount = currentlife / GameManagerIA.instance.npcConfig.maxLife;
+        _fsm.OnUpdate();
     }
 
     public void TakeDamage(float damage)

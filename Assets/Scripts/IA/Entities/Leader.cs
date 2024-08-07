@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Leader : SteeringAgent, IEntity, IDamageable
 {
@@ -10,6 +11,7 @@ public class Leader : SteeringAgent, IEntity, IDamageable
     public List<Node> path;
     public GameObject bulletSpawner;
     public Material mat;
+    public Image lifeBar;
 
     public float currentlife { get; set; }
     public float speedModifier { get; set; }
@@ -31,19 +33,26 @@ public class Leader : SteeringAgent, IEntity, IDamageable
         speedModifier = 1;
         currentlife = GameManagerIA.instance.leaderConfig.maxLife;
 
-        _fsm.AddState(StatesEnums.LeaderStateID.Idle, new IdleStateLeader(_fsm, this, redLeader ? GameManagerIA.instance.redLeaderTarget : GameManagerIA.instance.blueLeaderTarget));
-        _fsm.AddState(StatesEnums.LeaderStateID.Pathfind, new PathfindLeaderState(_fsm, this, redLeader ? GameManagerIA.instance.redLeaderTarget : GameManagerIA.instance.blueLeaderTarget));
-        _fsm.AddState(StatesEnums.LeaderStateID.Follow, new FollowPathLeaderState(_fsm, this, redLeader ? GameManagerIA.instance.redLeaderTarget : GameManagerIA.instance.blueLeaderTarget));
-        _fsm.AddState(StatesEnums.LeaderStateID.OnSight, new OnSightLeaderState(_fsm, this, redLeader ? GameManagerIA.instance.redLeaderTarget : GameManagerIA.instance.blueLeaderTarget));
-        _fsm.AddState(StatesEnums.LeaderStateID.Escape, new EscapeLeaderState(_fsm, this, redLeader ? GameManagerIA.instance.redLeaderTarget : GameManagerIA.instance.blueLeaderTarget));
-        _fsm.AddState(StatesEnums.LeaderStateID.Attack, new AttackLeaderState(_fsm, this, redLeader ? GameManagerIA.instance.redLeaderTarget : GameManagerIA.instance.blueLeaderTarget));
+        _fsm.AddState(StatesEnums.LeaderStateID.Idle, new IdleStateLeader(this, redLeader ? GameManagerIA.instance.redLeaderTarget : GameManagerIA.instance.blueLeaderTarget));
+        _fsm.AddState(StatesEnums.LeaderStateID.Pathfind, new PathfindLeaderState(this, redLeader ? GameManagerIA.instance.redLeaderTarget : GameManagerIA.instance.blueLeaderTarget));
+        _fsm.AddState(StatesEnums.LeaderStateID.Follow, new FollowPathLeaderState(this, redLeader ? GameManagerIA.instance.redLeaderTarget : GameManagerIA.instance.blueLeaderTarget));
+        _fsm.AddState(StatesEnums.LeaderStateID.Escape, new EscapeLeaderState(this, redLeader ? GameManagerIA.instance.npcConfig.redBase : GameManagerIA.instance.npcConfig.blueBase));
         _fsm.ChangeState(StatesEnums.LeaderStateID.Idle);
     }
 
     void Update()
     {
-        speed = _maxSpeed * speedModifier;
         _fsm.OnUpdate();
+        lifeBar.fillAmount = currentlife / GameManagerIA.instance.leaderConfig.maxLife;
+        if (currentlife <= 0) 
+        { 
+            gameObject.transform.position = redLeader ? GameManagerIA.instance.npcConfig.redBase.transform.position : GameManagerIA.instance.npcConfig.blueBase.transform.position; 
+            currentlife = GameManagerIA.instance.leaderConfig.maxLife;
+        }
+        if (Vector3.Distance(transform.position, redLeader ? GameManagerIA.instance.npcConfig.redBase.transform.position : GameManagerIA.instance.npcConfig.blueBase.transform.position) < 0.5f)
+        {
+            currentlife = GameManagerIA.instance.leaderConfig.maxLife;
+        }
     }
 
     public void TakeDamage(float damage)

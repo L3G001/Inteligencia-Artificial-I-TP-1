@@ -16,4 +16,13 @@ public class Node : MonoBehaviour
     {
         GameManagerIA.instance.grid.nodes.Add(this);
     }
+
+    private void OnDrawGizmos()
+    {
+        foreach (var neighbor in neighbors)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, neighbor.transform.position);
+        }
+    }
 }

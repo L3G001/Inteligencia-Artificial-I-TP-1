@@ -38,7 +38,7 @@ public class NPCConfig
     public List<SteeringAgent> redAgents = new List<SteeringAgent>();
     public List<SteeringAgent> blueAgents = new List<SteeringAgent>();
 
-    public Transform redBase, blueBase;
+    public Node redBase, blueBase;
 
     public float separationRadius, viewRadius, viewRange;
     public float separationWeight, arriveWeight, obstacleWeight;
@@ -48,7 +48,7 @@ public class NPCConfig
 [System.Serializable]
 public class LeaderConfig
 {
-    public SteeringAgent blueLeader, redLeader;
+    public Leader blueLeader, redLeader;
     public float viewRadius, viewRange;
     public float maxLife;
 }

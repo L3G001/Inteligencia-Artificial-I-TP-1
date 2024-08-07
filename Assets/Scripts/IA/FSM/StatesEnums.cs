@@ -9,8 +9,6 @@ public class StatesEnums : MonoBehaviour
         Idle,
         Pathfind,
         Follow,
-        OnSight,
-        Attack,
         Escape
     }
 
