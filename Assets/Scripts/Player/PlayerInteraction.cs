@@ -37,16 +37,16 @@ public class PlayerInteraction : MonoBehaviour
         {
             var obj = _hit.collider.gameObject.GetComponent<Pedestal>();
             _interactuableInRange = true;
-            if (obj.firstActivation) { PlayerUIManager.Instance._interactUI.SetActive(true); }
-            if (_interacted && obj.firstActivation)
+            if (obj.pedestalInteractionType == PedestalInteractionType.Interactuable) { PlayerUIManager.Instance._interactUI.SetActive(true); }
+            if (_interacted && obj.pedestalInteractionType == PedestalInteractionType.Interactuable)
             {
                 obj.Execute();
-                if(obj._pedestalType == PedestalType.Fire)
+                if(obj.pedestalType == PedestalType.Fire)
                 {
                     GameManager.instance.staffAnimator.SetBool("ChangeToFire",true);
                     GameManager.instance.staffAnimator.SetBool("ChangeToWater",false);
                 }
-                else if (obj._pedestalType == PedestalType.Water)
+                else if (obj.pedestalType == PedestalType.Water)
                 {
                     GameManager.instance.staffAnimator.SetBool("ChangeToWater",true);
                     GameManager.instance.staffAnimator.SetBool("ChangeToFire",false);

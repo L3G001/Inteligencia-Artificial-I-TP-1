@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Pedestal : Interactuable
 {
-    public bool firstActivation, secondActivation, completed;
-    private bool _waterBallActive, _fireBallActive, _interacted;
-    public PedestalType _pedestalType;
+    public PedestalInteractionType pedestalInteractionType;
+
+    public bool completed;
+
+    private bool _waterBallActive;
+    private bool _fireBallActive;
+    private bool _interacted;
+
+    public PedestalType pedestalType;
     [SerializeField] GameObject _waterBall, _fireBall, _potion, _pedestal, _lowerPedTarget, _raisedPedTarget;
     [SerializeField] List<Light> _lights;
 
@@ -22,7 +28,7 @@ public class Pedestal : Interactuable
             _fireBall.SetActive(true);
             _waterBall.SetActive(false);
         }
-        if (firstActivation && _interacted)
+        if (pedestalInteractionType == PedestalInteractionType.Interactuable && _interacted)
         {
             Lower();
             foreach (Pedestal ped in _linkedObjects)
@@ -34,7 +40,7 @@ public class Pedestal : Interactuable
 
     public override void Execute()
     {
-        if (firstActivation)
+        if (pedestalInteractionType == PedestalInteractionType.Interactuable)
         {
             _potion.SetActive(false);
             foreach (Light light in _lights)
@@ -44,7 +50,7 @@ public class Pedestal : Interactuable
             _pedestal.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
             _interacted = true;
         }
-        else if (secondActivation)
+        else if (pedestalInteractionType == PedestalInteractionType.BulletCollision)
         {
             foreach (Light light in _lights)
             {
@@ -66,9 +72,9 @@ public class Pedestal : Interactuable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (firstActivation) return;
+        if (pedestalInteractionType == PedestalInteractionType.Interactuable) return;
         if (completed) return;
-        if ((_pedestalType == PedestalType.Fire && other.gameObject.GetComponent<Bullet>().bulletType == BulletType.Fire) || (_pedestalType == PedestalType.Water && other.gameObject.GetComponent<Bullet>().bulletType == BulletType.Water))
+        if ((pedestalType == PedestalType.Fire && other.gameObject.GetComponent<Bullet>().bulletType == BulletType.Fire) || (pedestalType == PedestalType.Water && other.gameObject.GetComponent<Bullet>().bulletType == BulletType.Water))
         {
             Execute();
         }
@@ -91,4 +97,10 @@ public enum PedestalType
 {
     Fire,
     Water
+}
+
+public enum PedestalInteractionType
+{
+    Interactuable,
+    BulletCollision
 }
