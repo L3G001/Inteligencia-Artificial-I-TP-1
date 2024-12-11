@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/VisualEffectLevel.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/IA1.unity
     guid: 06fd4e0052cafe248a41ce17daab8a29
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/End.unity
     guid: 46f95c073d897724a8f284dc492ba8bc
   m_configObjects: {}
