@@ -1,0 +1,22 @@
+id ¬ Traduccion English °
+B_Start ¬ Start °
+B_Options ¬ Options °
+B_Exit ¬ Exit °
+B_Close ¬ Close °
+B_L_1 ¬ Level 1 °
+OTT_Graphics ¬ Graphics °
+OTT_Language ¬ Language °
+OTO_BorderActive ¬ Active screen border effect °
+OTO_ColorDepth ¬ Color Depth °
+OTO_BorderAnimated ¬ Animated screen border effect °
+OTO_OutlineType ¬ Outline type °
+OTO_TextLanguage ¬ Text language °
+B_ExitGame ¬ Quit game °
+B_Menu ¬ Return to main menu °
+T_EndText ¬ The adventure will go on... °
+B_Continue ¬ Continue °
+B_Restart ¬ Restart °
+T_QuitText ¬ Do you wish to return to the main menu or quit the game? °
+B_Menu2 ¬ Menu °
+B_Game ¬ Game °
+T_InteractText ¬ Interact °

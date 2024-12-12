@@ -32,6 +32,7 @@ Transform:
   - {fileID: 1527287871593268249}
   - {fileID: 5230095952474403797}
   - {fileID: 4014323170819962341}
+  - {fileID: 3997623212448847202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3115112060280554348
@@ -151,8 +152,62 @@ MonoBehaviour:
   puzzle1Mat: {fileID: 2100000, guid: 4f3c624a816f6a04a8561eea3d43bb7d, type: 2}
   puzzle2Mat: {fileID: 2100000, guid: 33b23b07e12640a47b2ca253c721f8fc, type: 2}
   puzzle3Mat: {fileID: 2100000, guid: bb039ce2f7b96c04785a588db5962a39, type: 2}
+  puzz1Ped: []
+  puzz2Ped: []
+  puzz3Ped: []
   Shield: {fileID: 0}
-  puzflag: 0
+--- !u!1 &7955598250599236320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3997623212448847202}
+  - component: {fileID: 8276221051114585931}
+  m_Layer: 0
+  m_Name: LocalizationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3997623212448847202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7955598250599236320}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6679552030267141081}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8276221051114585931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7955598250599236320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fc15675a3cde845bd69243fe3938af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _language: 33
+  _data:
+  - language: 33
+    data:
+    - {fileID: 4900000, guid: 909d8655a05815c4186855c797cc2480, type: 3}
+  - language: 10
+    data:
+    - {fileID: 4900000, guid: d0829ab8b3e1ba041a06f7ada9614f35, type: 3}
 --- !u!1 &9049604946979102352
 GameObject:
   m_ObjectHideFlags: 0
