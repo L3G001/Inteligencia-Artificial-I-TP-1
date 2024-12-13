@@ -4,7 +4,7 @@ using TMPro;
 
 public class LaguageButton : MonoBehaviour
 {
-    public SystemLanguage language = default;
+    public SystemLanguage language = SystemLanguage.Spanish;
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class LaguageButton : MonoBehaviour
         Debug.LogWarning(gameObject.GetComponent<TMP_Dropdown>().value);
         language = value switch
         {
-            0 => SystemLanguage.Spanish,
+            0 => SystemLanguage.Slovenian,// por alguna razon desconosida si ponemos Spanish no funciona y tira swidish que es el sigiente y si ponemos slovenian tira spanish
             1 => SystemLanguage.English,
             _ => SystemLanguage.Spanish,
         };
