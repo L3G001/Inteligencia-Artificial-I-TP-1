@@ -7,6 +7,8 @@ public class PlayerInteraction : MonoBehaviour
     bool _interactuableInRange = false;
     bool _interacted = false;
 
+    [SerializeField] private PlayerAttack _playerAttack;
+
     [Header("Raycast Settings")]
     [SerializeField] float _radius = default;
     [SerializeField] float _range = default;
@@ -45,11 +47,13 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     GameManager.instance.staffAnimator.SetBool("ChangeToFire",true);
                     GameManager.instance.staffAnimator.SetBool("ChangeToWater",false);
+                    _playerAttack.fireUnlocked = true;
                 }
                 else if (obj.pedestalType == PedestalType.Water)
                 {
                     GameManager.instance.staffAnimator.SetBool("ChangeToWater",true);
                     GameManager.instance.staffAnimator.SetBool("ChangeToFire",false);
+                    _playerAttack.waterUnlocked = true;
                 }
                 _interacted = false;
             }

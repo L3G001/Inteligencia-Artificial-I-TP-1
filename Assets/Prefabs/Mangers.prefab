@@ -200,7 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32fc15675a3cde845bd69243fe3938af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _language: 33
   _data:
   - language: 33
     data:

@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private bool _isAttacking, _canAttack;
+    public bool waterUnlocked = false;
+    public bool fireUnlocked = false;
     [SerializeField] private GameObject _bulletSpawn, _waterBullet, _fireBullet;
     private Bullet _currentBullet;
     private ObjectPool<Bullet> _currentPool
@@ -98,12 +100,12 @@ public class PlayerAttack : MonoBehaviour
 
     void ChangeBullet()
     {
-        if(_waterBullet.activeSelf)
+        if(_waterBullet.activeSelf && fireUnlocked)
         {
             GameManager.instance.staffAnimator.SetBool("ChangeToWater", false);
             GameManager.instance.staffAnimator.SetBool("ChangeToFire", true);
         }
-        else if(_fireBullet.activeSelf)
+        else if(_fireBullet.activeSelf && waterUnlocked)
         {
             GameManager.instance.staffAnimator.SetBool("ChangeToWater", true);
             GameManager.instance.staffAnimator.SetBool("ChangeToFire", false);

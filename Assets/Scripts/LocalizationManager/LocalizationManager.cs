@@ -7,7 +7,7 @@ public class LocalizationManager : MonoBehaviour
 {
     public static LocalizationManager instance = default;
     public event Action OnChangeLanguage;
-    [SerializeField] private SystemLanguage _language = default;
+    [SerializeField] private static SystemLanguage _language = SystemLanguage.Slovenian;
     public SystemLanguage language
     {
         get => _language;

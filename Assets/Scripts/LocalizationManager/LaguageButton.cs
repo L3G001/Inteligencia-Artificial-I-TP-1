@@ -4,21 +4,13 @@ using TMPro;
 
 public class LaguageButton : MonoBehaviour
 {
-    public SystemLanguage language = SystemLanguage.Spanish;
+    public static SystemLanguage language = SystemLanguage.Spanish;
 
     void Start()
     {
-        /*LocalizationManager.instance.OnChangeLanguage += () =>
-        {
-            if (language == LocalizationManager.instance.language)
-            {
-                GetComponent<Button>().image.color = Color.green;
-            }
-            else
-            {
-                GetComponent<Button>().image.color = Color.red;
-            }
-        };*/
+        
+        if (language == SystemLanguage.Slovenian) { gameObject.GetComponent<TMP_Dropdown>().value = 0; }
+        else if (language == SystemLanguage.English) { gameObject.GetComponent<TMP_Dropdown>().value = 1; }
         var dropdownValue = gameObject.GetComponent<TMP_Dropdown>().value;
         LanguageValue(dropdownValue);
         ChangeLanguage();
