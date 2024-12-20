@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance;
+    public static UIManager instance;
 
     [SerializeField] private GameObject _pauseMenu = default;
     public bool isPaused = default;
@@ -15,13 +15,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Dropdown _colorDepthDropdown, _outlineStyleDropdown;
     [SerializeField] private Toggle _ditherEffectToggle, _borderAnimationToggle;
     [SerializeField] private GameObject _portal;
-    [SerializeField] private float maxDistance = default;
+    [SerializeField] private float _maxDistance = default;
 
     private Vector2 _playerPosition, _targetPosition;
 
     void Awake()
     {
-        if (Instance == null) { Instance = this; }
+        if (instance == null) { instance = this; }
         else { Destroy(this); }
         Time.timeScale = 1;
         SetInitialValues();
@@ -29,14 +29,14 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.instance._inputReader.PauseEvent -= HandlePause;
-        GameManager.instance._inputReader.ResumeEvent -= HandleResume;
+        GameManager.instance.inputReader.PauseEvent -= HandlePause;
+        GameManager.instance.inputReader.ResumeEvent -= HandleResume;
     }
 
     private void Start()
     {
-        GameManager.instance._inputReader.PauseEvent += HandlePause;
-        GameManager.instance._inputReader.ResumeEvent += HandleResume;
+        GameManager.instance.inputReader.PauseEvent += HandlePause;
+        GameManager.instance.inputReader.ResumeEvent += HandleResume;
     }
 
     private void Update()
@@ -59,14 +59,14 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                GameManager.instance._inputReader.SetGameplay();
+                GameManager.instance.inputReader.SetGameplay();
             }
         }
         if (_portal != null)
         {
             _playerPosition = new Vector2(GameManager.instance.playerPosition.position.x, GameManager.instance.playerPosition.position.z);
             _targetPosition = new Vector2(_portal.transform.position.x, _portal.transform.position.z);
-            if (Vector2.Distance(_playerPosition, _targetPosition) < maxDistance) { PortalEffect(); }
+            if (Vector2.Distance(_playerPosition, _targetPosition) < _maxDistance) { PortalEffect(); }
             else { PortalEffectOut(); }
         }
         else { if (_portalEffect.GetFloat("_VignetteAmount") >= 0) { PortalEffectOut(); } }
@@ -155,7 +155,7 @@ public class UIManager : MonoBehaviour
     void PortalEffect()
     {
         float distance = Vector2.Distance(_playerPosition, _targetPosition);
-        float normalizedDistance = Mathf.Clamp01(distance / maxDistance);
+        float normalizedDistance = Mathf.Clamp01(distance / _maxDistance);
         float invert = 1 - normalizedDistance;
         float effectValue = invert * 1.04f;
         _portalEffect.SetFloat("_VignetteAmount", effectValue + 0.2f);

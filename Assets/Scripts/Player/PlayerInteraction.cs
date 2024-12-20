@@ -25,12 +25,12 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.instance._inputReader.InteractEvent -= HandleInteract;
+        GameManager.instance.inputReader.InteractEvent -= HandleInteract;
     }
 
     void Start()
     {
-        GameManager.instance._inputReader.InteractEvent += HandleInteract;
+        GameManager.instance.inputReader.InteractEvent += HandleInteract;
     }
 
     void Update()

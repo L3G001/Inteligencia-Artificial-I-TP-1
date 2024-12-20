@@ -27,16 +27,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.instance._inputReader.MoveEvent -= HandleMove;
-        GameManager.instance._inputReader.JumpEvent -= HandleJump;
-        GameManager.instance._inputReader.JumpCancelledEvent -= HandleCancelledJump;
-        GameManager.instance._inputReader.SprintEvent -= HandleSprint;
-        GameManager.instance._inputReader.SprintCancelledEvent -= HandleCancelledSprint;
+        GameManager.instance.inputReader.MoveEvent -= HandleMove;
+        GameManager.instance.inputReader.JumpEvent -= HandleJump;
+        GameManager.instance.inputReader.JumpCancelledEvent -= HandleCancelledJump;
+        GameManager.instance.inputReader.SprintEvent -= HandleSprint;
+        GameManager.instance.inputReader.SprintCancelledEvent -= HandleCancelledSprint;
     }
 
     void Start()
     {
-        var _input = GameManager.instance._inputReader;
+        var _input = GameManager.instance.inputReader;
         _characterController = GetComponent<CharacterController>();
         _input.MoveEvent += HandleMove;
         _input.JumpEvent += HandleJump;
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Jump();
         #region Rotation
-        if (canMove && !UIManager.Instance.isPaused)
+        if (canMove && !UIManager.instance.isPaused)
         {
             rotationX -= Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);

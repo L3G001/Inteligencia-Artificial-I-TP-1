@@ -3,43 +3,68 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance; // reference to the game manager instance (SINGLETON)
 
-    public InputReader _inputReader;
+    public InputReader inputReader;// reference to the input reader INPORTANT FOR INPUTS TO WORK PROPERLY IN THE GAME
 
     [Header("Player")]
-    public Animator staffAnimator;
-    public ObjectPool<Bullet> fireBulletPool;
-    public ObjectPool<Bullet> waterBulletPool;
-    public Transform poolParent, playerPosition;
+    public Animator staffAnimator; // reference to the staff animator (animator of player weapon) used for puzzle resolution
+
+    public ObjectPool<Bullet> fireBulletPool; // object pool for fire bullets
+    public ObjectPool<Bullet> waterBulletPool; // object pool for water bullets
+
+    public Transform poolParent, playerPosition; // parent for the object pools and player position
 
     [Header("Puzzle")]
-    public bool puzzle1, puzzle2, puzzle3;
-    private bool _puzzle1done, _puzzle2done, _puzzle3done;
-    public Material puzzle1Mat, puzzle2Mat, puzzle3Mat;
+    public bool puzzle1, puzzle2, puzzle3; // Flags to check if the puzzle is completed
+    private bool _puzzle1done, _puzzle2done, _puzzle3done;// Flags to check if the puzzle is completed
+    private float _puz1flag, _puz2flag, _puz3flag, _totalPuz1Peds, _totalPuz2Peds, _totalPuz3Peds;// Flags to check if the puzzle is completed
+
+
+
+    public Material puzzle1Mat, puzzle2Mat, puzzle3Mat;//Materials for the puzzles Reference
+
     public List<Pedestal> puzz1Ped, puzz2Ped, puzz3Ped;
-    public ShieldShader Shield;
-    private float _puz1flag, _puz2flag, _puz3flag, _totalPuz1Peds, _totalPuz2Peds, _totalPuz3Peds;
+
+    public ShieldShader Shield; //Shader for the shield effect Reference
+
 
     void Awake()
     {
-        if (instance == null) { instance = this; }
+        if (instance == null) { instance = this; } //Initialize the singleton
         else { Destroy(this); }
     }
 
     private void Start()
     {
+        //intialized the object pools
+        //---------------------------------------------------//
         fireBulletPool = new ObjectPool<Bullet>("FireBullet", poolParent);
         waterBulletPool = new ObjectPool<Bullet>("WaterBullet", poolParent);
+        //---------------------------------------------------//
+
+        //initialize Material Keywords
+        //---------------------------------------------------//
         puzzle1Mat.DisableKeyword("_EMISSION");
         puzzle2Mat.DisableKeyword("_EMISSION");
         puzzle3Mat.DisableKeyword("_EMISSION");
+        //---------------------------------------------------//
+
+        //initialize the flags
+        //---------------------------------------------------//
         _totalPuz1Peds = puzz1Ped.Count;
         _totalPuz2Peds = puzz2Ped.Count;
         _totalPuz3Peds = puzz3Ped.Count;
+        //---------------------------------------------------//
     }
 
     private void Update()
+    {
+        CheckCompletePuzzle();
+
+        CheckShield();
+    }
+    private void CheckCompletePuzzle() 
     {
         if (puzz1Ped != null)
         {
@@ -65,6 +90,10 @@ public class GameManager : MonoBehaviour
                 if (_puz3flag >= _totalPuz3Peds) { puzzle3 = true; }
             }
         }
+    }
+
+    private void CheckShield()
+    {
         if (puzzle1 && !_puzzle1done)
         {
             Shield.OpenCloseShield();

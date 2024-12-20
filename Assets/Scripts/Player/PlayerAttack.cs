@@ -22,17 +22,17 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.instance._inputReader.AttackEvent -= AttackStartHandle;
-        GameManager.instance._inputReader.AttackCancelledEvent -= AttackCancelledHandle;
-        GameManager.instance._inputReader.ChangeWeaponEvent -= ChangeBulletHandle;
+        GameManager.instance.inputReader.AttackEvent -= AttackStartHandle;
+        GameManager.instance.inputReader.AttackCancelledEvent -= AttackCancelledHandle;
+        GameManager.instance.inputReader.ChangeWeaponEvent -= ChangeBulletHandle;
     }
 
     void Start()
     {
         _canAttack = true;
-        GameManager.instance._inputReader.AttackEvent += AttackStartHandle;
-        GameManager.instance._inputReader.AttackCancelledEvent += AttackCancelledHandle;
-        GameManager.instance._inputReader.ChangeWeaponEvent += ChangeBulletHandle;
+        GameManager.instance.inputReader.AttackEvent += AttackStartHandle;
+        GameManager.instance.inputReader.AttackCancelledEvent += AttackCancelledHandle;
+        GameManager.instance.inputReader.ChangeWeaponEvent += ChangeBulletHandle;
     }
 
     void Update()

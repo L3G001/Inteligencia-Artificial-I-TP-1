@@ -8,7 +8,7 @@ public class Portal : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
-            UIManager.Instance.LoadScene(_sceneToLoad);
+            UIManager.instance.LoadScene(_sceneToLoad);
         }
     }
 }
